@@ -1,6 +1,6 @@
 export enum ProgressTaskProps {
-  toDo = 'A fazer',
-  inProgress = 'Em andamento',
-  isLate = 'Atrasado',
-  completed = 'Concluido',
+  pending = 'pending',
+  inProgress = 'inProgress',
+  delayed = 'delayed',
+  completed = 'completed',
 }

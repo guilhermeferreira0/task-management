@@ -35,8 +35,14 @@ Task.init(
       allowNull: false,
     },
     progress: {
-      type: DataTypes.STRING,
-      defaultValue: ProgressTaskProps.toDo,
+      type: DataTypes.ENUM,
+      values: [
+        ProgressTaskProps.pending,
+        ProgressTaskProps.inProgress,
+        ProgressTaskProps.delayed,
+        ProgressTaskProps.completed,
+      ],
+      defaultValue: ProgressTaskProps.pending,
     },
     pk_user: {
       type: DataTypes.INTEGER,
