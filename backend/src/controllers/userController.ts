@@ -1,5 +1,9 @@
 import { NextFunction, type Request, type Response } from 'express';
 import { User } from '../models/userModel';
+import { Task } from '../models/taskModel';
+
+// adding task key for user
+User.hasMany(Task, { foreignKey: 'user_id' });
 
 export class UserController {
   // get all users for database
@@ -18,7 +22,11 @@ export class UserController {
   async getUser(req: Request, res: Response) {
     const userId = req.params.id;
     try {
-      const userExisting = await User.findByPk(userId);
+      const userExisting = await User.findByPk(userId, {
+        include: {
+          model: Task,
+        }
+      });
       if (!userExisting) {
         return res
           .status(406)
