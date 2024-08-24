@@ -16,7 +16,7 @@ export class Task extends Model<
   declare title: string;
   declare description: string;
   declare progress: ProgressTaskProps;
-  declare pk_user: number;
+  declare user_id: number;
 }
 
 Task.init(
@@ -44,10 +44,10 @@ Task.init(
       ],
       defaultValue: ProgressTaskProps.pending,
     },
-    pk_user: {
+    user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
   },
-  { sequelize, timestamps: true },
+  { sequelize, timestamps: true, modelName: 'task' },
 );

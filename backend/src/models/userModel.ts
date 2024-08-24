@@ -38,5 +38,5 @@ User.init(
       allowNull: false,
     },
   },
-  { sequelize, timestamps: true },
+  { sequelize, timestamps: true, modelName: 'user' },
 );
