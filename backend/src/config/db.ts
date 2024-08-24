@@ -7,16 +7,19 @@ class Connection {
     host: 'localhost',
   });
 
-  async start() {
+  async testConnection() {
     try {
       await this.connection.authenticate();
       console.log('Connection has been established successfully.');
-      return this.connection;
     } catch (error) {
       // sequelize.close()
       console.error('Unable to connect to the database:', error);
     }
   }
+
+  start() {
+    return this.connection;
+  }
 }
 
-export const connection = new Connection().start();
+export const sequelize = new Connection().start();
