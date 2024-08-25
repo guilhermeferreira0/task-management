@@ -1,6 +1,7 @@
 import { NextFunction, type Request, type Response } from 'express';
 import { User } from '../models/userModel';
 import { Task } from '../models/taskModel';
+import { hashPassword } from '../utils/hash';
 
 // adding task key for user
 User.hasMany(Task, { foreignKey: 'user_id' });
@@ -49,12 +50,13 @@ export class UserController {
         .json({ success: false, message: 'Email or password Undefined' });
     }
     try {
-      const newUser = await User.create({ username, email, password });
+      const hashedPassword = await hashPassword(password);
+      const newUser = await User.create({ username, email, password: hashedPassword });
       return res.status(201).json({ success: true, data: newUser });
     } catch (error) {
       return res
         .status(400)
-        .json({ success: false, message: 'Failed getAllUsers' });
+        .json({ success: false, message: 'Failed register user' });
     }
   }
 
