@@ -1,39 +1,38 @@
 import { NextFunction, type Request, type Response } from 'express';
 import { User } from '../models/userModel';
 import { Task } from '../models/taskModel';
-import { hashPassword } from '../utils/hash';
+import { hashPassword, verifyHashedPassword } from '../utils/hash';
+import { signToken } from '../utils/token';
 
 // adding task key for user
 User.hasMany(Task, { foreignKey: 'user_id' });
 
 export class UserController {
   // get all users for database
-  async getAllUsers(req: Request, res: Response, next: NextFunction) {
-    try {
-      const users = await User.findAll();
-      return res.status(200).json({ success: true, data: users });
-    } catch (error) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'Failed getAllUsers' });
-    }
-  }
+  // async getAllUsers(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const users = await User.findAll();
+  //     return res.status(200).json({ success: true, data: users });
+  //   } catch (error) {
+  //     return res
+  //       .status(400)
+  //       .json({ success: false, message: 'Failed getAllUsers' });
+  //   }
+  // }
 
-  // get specific user for id
+  // get user authenticate
   async getUser(req: Request, res: Response) {
-    const userId = req.params.id;
+    const { id } = req.body.user;
     try {
-      const userExisting = await User.findByPk(userId, {
-        include: {
-          model: Task,
-        }
-      });
+      const userExisting = await User.findOne({ where: { id: id } });
       if (!userExisting) {
         return res
           .status(406)
           .json({ success: false, message: 'User is undefined' });
       }
-      return res.status(200).json({ success: true, data: userExisting });
+
+      const { username, email } = userExisting;
+      return res.status(200).json({ success: true, data: {username, email} });
     } catch (error) {
       return res
         .status(400)
@@ -52,7 +51,8 @@ export class UserController {
     try {
       const hashedPassword = await hashPassword(password);
       const newUser = await User.create({ username, email, password: hashedPassword });
-      return res.status(201).json({ success: true, data: newUser });
+      const token = signToken(String(newUser.id), newUser.email);
+      return res.status(201).json({ success: true, token });
     } catch (error) {
       return res
         .status(400)
@@ -62,9 +62,9 @@ export class UserController {
 
   // delete specific user for id
   async delete(req: Request, res: Response) {
-    const userId = req.params.id;
+    const { id } = req.body.user;
     try {
-      const userExisting = await User.findByPk(userId);
+      const userExisting = await User.findByPk(id);
       if (!userExisting) {
         return res
           .status(406)
@@ -75,27 +75,49 @@ export class UserController {
     } catch (error) {
       return res
         .status(400)
-        .json({ success: false, message: 'Failed getUser' });
+        .json({ success: false, message: 'Failed delete user' });
     }
   }
 
-  // update specific user for id
+  // update specific user authenticate
   async update(req: Request, res: Response) {
-    const userId = req.params.id;
+    const { id } = req.body.user;
     const { username, email, password } = req.body;
     try {
-      const userExisting = await User.findByPk(userId);
+      const userExisting = await User.findByPk(id);
       if (!userExisting) {
         return res
           .status(406)
           .json({ success: false, message: 'User is undefined' });
       }
-      const userUpdated = await userExisting.update({ username, email, password });
-      return res.status(200).json({ success: true, data: userUpdated });
+      await userExisting.update({ username, email, password });
+      return res.status(200).json({ success: true, message: 'User updated' });
     } catch (error) {
       return res
         .status(400)
-        .json({ success: false, message: 'Failed getUser' });
+        .json({ success: false, message: 'Failed update user' });
+    }
+  }
+
+  // login user
+  async loginUser(req: Request, res: Response) {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res
+        .status(406)
+        .json({ success: false, message: 'Email or password Undefined' });
+    }
+    try {
+      const userExisting = await User.findOne({ where: { email: email } });
+      if (!userExisting) return res.status(401).json({success: false, message: 'User doesn´t exists'});
+
+      const isMatchPassword = await verifyHashedPassword(password, userExisting.password);
+      if (!isMatchPassword) return res.status(401).json({success: false, message: 'Invalid credentials'});
+
+      const token = signToken(String(userExisting.id), userExisting.email);
+      return res.status(202).json({success:true, token});
+    } catch(error) {
+      return res.status(401).json({success:false, message: 'Error Unauthorized'});
     }
   }
 }
