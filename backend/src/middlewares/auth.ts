@@ -7,6 +7,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
 
   try {
     const decoded = authenticateToken(token as string);
+    console.log(decoded);
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,

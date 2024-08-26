@@ -1,4 +1,4 @@
-import { NextFunction, type Request, type Response } from 'express';
+import { type Request, type Response } from 'express';
 import { User } from '../models/userModel';
 import { Task } from '../models/taskModel';
 import { hashPassword, verifyHashedPassword } from '../utils/hash';
@@ -71,6 +71,7 @@ export class UserController {
           .json({ success: false, message: 'User is undefined' });
       }
       await userExisting.destroy();
+
       return res.status(200).json({ success: true, message: 'User deleted' });
     } catch (error) {
       return res
