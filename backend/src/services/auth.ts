@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { User } from '../models/userModel';
 
 const SECRET_KEY = process.env.JWT_SECRET as string || 'testsecret';
 
@@ -24,8 +23,8 @@ export default class AuthService {
     return await bcrypt.compare(password, hashedPassword);
   }
 
-  static generateToken(user: User): string {
-    return jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
+  static generateToken(id: string, email: string): string {
+    return jwt.sign({ id, email }, SECRET_KEY, {
       expiresIn: '1h'
   });
   }
