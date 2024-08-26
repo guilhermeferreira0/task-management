@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LayoutPage } from './components/layout';
+import { DashboardPage } from './components/Dashboard';
 import { NavBar } from './components/Header';
 import { MenuAside } from './components/Header/MenuAside';
 
@@ -9,9 +9,11 @@ function App(): JSX.Element {
     <>
       <NavBar />
       <MenuAside />
-      <Routes>
-        <Route path="/" element={<LayoutPage />} />
-      </Routes>
+      <main className="absolute top-24 z-20 md:left-[25%] left-0 right-0">
+        <Routes>
+          <Route path="/" element={<DashboardPage />} />
+        </Routes>
+      </main>
     </>
   );
 }
