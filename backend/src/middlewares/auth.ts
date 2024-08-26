@@ -1,15 +1,15 @@
-import { NextFunction, type Request, type Response } from "express";
-import { authenticateToken } from "../utils/token";
+import { NextFunction, Request, Response } from "express";
+import AuthService from "../services/auth";
 
-export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(406).json({success: false, message: 'Not Authorized Login Again'});
-
+export async function authMiddleware(req: Partial<Request>, res: Partial<Response>, next: NextFunction) {
+  const token = req.headers?.['authorization'];
   try {
-    const decoded = authenticateToken(token as string);
-    console.log(decoded);
+    const decoded = AuthService.decodeToken(token as string);
+    if (!decoded) {
+      return res.status?.(406).json({success: false, message: 'Not Authorized Login Again'});
+    }
 
-    res.cookie("token", token, {
+    res.cookie?.("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
@@ -17,6 +17,6 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     req.body.user = decoded;
     next();
   } catch(error) {
-    return res.status(407).json({success: false, message: 'Error login, please try again'});
+    return res.status?.(401).json({success: false, message: 'Error login, please try again'});
   }
 }

@@ -1,8 +1,7 @@
 import { type Request, type Response } from 'express';
 import { User } from '../models/userModel';
 import { Task } from '../models/taskModel';
-import { hashPassword, verifyHashedPassword } from '../utils/hash';
-import { signToken } from '../utils/token';
+import AuthService from '../services/auth';
 
 // adding task key for user
 User.hasMany(Task, { foreignKey: 'user_id' });
@@ -49,9 +48,9 @@ export class UserController {
         .json({ success: false, message: 'Email or password Undefined' });
     }
     try {
-      const hashedPassword = await hashPassword(password);
+      const hashedPassword = await AuthService.hashPassword(password);
       const newUser = await User.create({ username, email, password: hashedPassword });
-      const token = signToken(String(newUser.id), newUser.email);
+      const token = AuthService.generateToken(newUser);
       return res.status(201).json({ success: true, token });
     } catch (error) {
       return res
@@ -91,7 +90,7 @@ export class UserController {
           .status(406)
           .json({ success: false, message: 'User is undefined' });
       }
-      const hashedPassword = await hashPassword(password);
+      const hashedPassword = await AuthService.hashPassword(password);
       userExisting.username = username;
       userExisting.email = email;
       userExisting.password = hashedPassword;
@@ -117,10 +116,10 @@ export class UserController {
       const userExisting = await User.findOne({ where: { email: email } });
       if (!userExisting) return res.status(401).json({success: false, message: 'User doesn´t exists'});
 
-      const isMatchPassword = await verifyHashedPassword(password, userExisting.password);
+      const isMatchPassword = await AuthService.comparePasswords(password, userExisting.password);
       if (!isMatchPassword) return res.status(401).json({success: false, message: 'Invalid credentials'});
 
-      const token = signToken(String(userExisting.id), userExisting.email);
+      const token = AuthService.generateToken(userExisting);
       return res.status(202).json({success:true, token});
     } catch(error) {
       return res.status(401).json({success:false, message: 'Error Unauthorized'});
