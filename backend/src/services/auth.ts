@@ -24,8 +24,8 @@ export default class AuthService {
     return await bcrypt.compare(password, hashedPassword);
   }
 
-  static generateToken(user: User): string {
-    return jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
+  static generateToken(id: string, email: string): string {
+    return jwt.sign({ id, email }, SECRET_KEY, {
       expiresIn: '1h'
   });
   }
