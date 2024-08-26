@@ -90,9 +90,14 @@ export class UserController {
           .status(406)
           .json({ success: false, message: 'User is undefined' });
       }
-      await userExisting.update({ username, email, password });
+      const hashedPassword = await hashPassword(password);
+      userExisting.username = username;
+      userExisting.email = email;
+      userExisting.password = hashedPassword;
+      await userExisting.update({ id: id });
       return res.status(200).json({ success: true, message: 'User updated' });
     } catch (error) {
+      console.log(error);
       return res
         .status(400)
         .json({ success: false, message: 'Failed update user' });
