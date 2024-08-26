@@ -1,10 +1,6 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import 'dotenv/config';
 
-interface JwtProps extends JwtPayload {
-  id: string
-}
-
 const SECRET_KEY = process.env.JWT_SECRET as string || 'testsecret';
 
 export function signToken(id: string, email: string) {
