@@ -5,7 +5,7 @@ export async function authMiddleware(req: Partial<Request>, res: Partial<Respons
   const token = req.headers?.['authorization'];
   try {
     const decoded = AuthService.decodeToken(token as string);
-    if (!decoded) {
+    if (!decoded?.id || !decoded?.email) {
       return res.status?.(406).json({success: false, message: 'Not Authorized Login Again'});
     }
 
