@@ -23,7 +23,7 @@ app.listen(port, () => {
 })();
 
 // api endpoints
-app.get('/', (req: Request, res: Response) => {
+app.get('/api', (req: Request, res: Response) => {
   res.json({ success: true, message: 'Api working!' });
 });
 app.use('/api/user', userRouter);
