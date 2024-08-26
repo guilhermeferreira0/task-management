@@ -9,4 +9,5 @@ taskRouter.delete('/delete/:id', authMiddleware, task.delete);
 taskRouter.put('/update/:id', authMiddleware, task.update);
 taskRouter.post('/register', authMiddleware, task.register);
 taskRouter.get('/:id', authMiddleware, task.getTask);
+taskRouter.post('/', authMiddleware, task.getTaskSpecifyingProgress);
 taskRouter.get('/', authMiddleware, task.getAllTasks);

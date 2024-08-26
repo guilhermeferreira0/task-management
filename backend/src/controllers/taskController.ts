@@ -1,6 +1,7 @@
 import { type Request, type Response } from 'express';
 import { Task } from '../models/taskModel';
 import { User } from '../models/userModel';
+import { ProgressTaskProps } from '../types/taskType';
 
 // adding fk task
 Task.belongsTo(User);
@@ -96,6 +97,28 @@ export class TaskController {
         return res
           .status(400)
           .json({ success: false, message: 'Failed update task' });
+    }
+  }
+
+  // takes task specifying progress
+  async getTaskSpecifyingProgress(req: Request, res: Response) {
+    const { id } = req.body.user;
+    const progress: ProgressTaskProps = req.body.progress;
+    if (!progress) {
+      return res.status(400).json({ success: false, message: 'Failed progress specified undefined' });
+    } 
+    try {
+      const taskExisting = await Task.findAll({ where: { user_id: id, progress: progress } });
+      if (!taskExisting) {
+        return res
+          .status(406)
+          .json({ success: false, message: 'tasks is undefined' });
+      }
+      return res.status(200).json({ success: true, data: taskExisting });
+      } catch (error) {
+        return res
+          .status(400)
+          .json({ success: false, message: 'Failed get tasks' });
     }
   }
 }
