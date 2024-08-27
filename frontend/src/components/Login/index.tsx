@@ -6,7 +6,7 @@ export function FormPage() {
   const [loginPage, setLoginPage] = useState(false);
 
   return (
-    <section className="p-8 max-w-3xl">
+    <section className="p-8 max-w-6xl">
       {loginPage ? (
         <LoginPage setPage={setLoginPage} />
       ) : (
