@@ -4,6 +4,7 @@ import { DashboardPage } from './components/Dashboard';
 import { NavBar } from './components/Header';
 import { MenuAside } from './components/Header/MenuAside';
 import { MenuProvider } from './contexts/MenuContext';
+import { FormPage } from './components/Login';
 
 function App(): JSX.Element {
   return (
@@ -12,9 +13,10 @@ function App(): JSX.Element {
         <NavBar />
         <MenuAside />
       </MenuProvider>
-      <main className="absolute top-24 md:left-[25%] left-0 right-0">
+      <main className="absolute top-24 md:left-[35%] lg:left-64 left-0 right-0">
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/" element={<FormPage />} />
         </Routes>
       </main>
     </>
