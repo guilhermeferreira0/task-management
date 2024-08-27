@@ -5,20 +5,24 @@ import { NavBar } from './components/Header';
 import { MenuAside } from './components/Header/MenuAside';
 import { MenuProvider } from './contexts/MenuContext';
 import { FormPage } from './components/Login';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App(): JSX.Element {
   return (
     <>
-      <MenuProvider>
-        <NavBar />
-        <MenuAside />
-      </MenuProvider>
-      <main className="absolute top-24 md:left-[35%] lg:left-64 left-0 right-0">
-        <Routes>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/" element={<FormPage />} />
-        </Routes>
-      </main>
+      <AuthProvider>
+        <MenuProvider>
+          <NavBar />
+          <MenuAside />
+        </MenuProvider>
+
+        <main className="absolute top-24 md:left-[35%] lg:left-64 left-0 right-0">
+          <Routes>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/" element={<FormPage />} />
+          </Routes>
+        </main>
+      </AuthProvider>
     </>
   );
 }
