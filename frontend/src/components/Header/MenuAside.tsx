@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdManageSearch } from 'react-icons/md';
+import { IoMdClose } from 'react-icons/io';
 import { CiLogout } from 'react-icons/ci';
+import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 
 export function MenuAside() {
-  const [menuIsOpen] = useState(false);
+  const { menuIsOpen, setMenuIsOpen } = useMenuContext();
+  console.log(menuIsOpen);
 
   return (
     <aside
-      className={`fixed top-0 w-[25%] bg-gray-100 z-10 h-full flex flex-col justify-between items-center p-7 shadow-2xl ${
-        menuIsOpen ? 'left-0' : 'max-md:left-full'
+      className={`fixed top-0 w-[35%] lg:w-64 bg-gray-100 z-10 h-full flex flex-col justify-between items-center p-7 shadow-2xl ${
+        menuIsOpen ? 'left-0' : 'max-md:-left-[35%]'
       }`}
     >
       <div className="flex flex-col gap-8">
+        {menuIsOpen && (
+          <button onClick={() => setMenuIsOpen(false)} className="md:hidden">
+            <IoMdClose />
+          </button>
+        )}
         <h3 className="text-lg font-bold flex">
           <MdManageSearch size={25} />
           Pro Manage
