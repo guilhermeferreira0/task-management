@@ -6,7 +6,7 @@ export function FormPage() {
   const [loginPage, setLoginPage] = useState(false);
 
   return (
-    <section className="p-8 max-w-6xl">
+    <section className="p-8 w-full h-svh flex justify-center items-center">
       {loginPage ? (
         <LoginPage setPage={setLoginPage} />
       ) : (

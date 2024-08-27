@@ -1,6 +1,7 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginPageProps {
   setPage: (vl: boolean) => void;
@@ -12,14 +13,18 @@ interface IFormInput {
 }
 
 export function LoginPage({ setPage }: LoginPageProps) {
+  const navigate = useNavigate();
   const { authenticate } = useAuth();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IFormInput>();
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    await authenticate(data);
+    const response = await authenticate(data);
+    if (!response) return;
+    return navigate('/dashboard');
   };
 
   return (

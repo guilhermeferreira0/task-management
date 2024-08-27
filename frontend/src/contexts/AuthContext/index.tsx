@@ -1,6 +1,10 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { UserProps } from '../../types/userProps';
-import { loginRequest, registerRequest } from '../../api/user';
+import {
+  loginRequest,
+  registerRequest,
+  userDetailsRequest,
+} from '../../api/user';
 import { AuthProps } from './type';
 import { setCookie } from '../../services/cookies';
 
@@ -18,8 +22,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const response = await loginRequest(user);
       setUserLogged(user);
       setCookie(response.token);
+      return true;
     } catch (e) {
-      return;
+      return false;
     }
   }
 
@@ -34,11 +39,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function verifyUserToken() {
+    try {
+      const response = await userDetailsRequest();
+      console.log(response);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    const response = async () => {
+      return await verifyUserToken();
+    };
+
+    if (!response) {
+      setCookie('');
+      setUserLogged({});
+    }
+  }, []);
+
   return (
     <Context.Provider
       value={{
         authenticate,
         registerUser,
+        verifyUserToken,
       }}
     >
       {children}

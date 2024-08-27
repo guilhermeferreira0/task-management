@@ -1,0 +1,20 @@
+import React from 'react';
+import { MenuProvider } from '../../contexts/MenuContext';
+import { NavBar } from '../Header';
+import { MenuAside } from '../Header/MenuAside';
+import { DashboardPage } from '../Dashboard';
+
+export function MainPage(): JSX.Element {
+  return (
+    <>
+      <MenuProvider>
+        <NavBar />
+        <MenuAside />
+      </MenuProvider>
+
+      <main className="absolute top-24 md:left-[35%] lg:left-64 left-0 right-0">
+        <DashboardPage />
+      </main>
+    </>
+  );
+}

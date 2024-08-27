@@ -1,4 +1,5 @@
 import { Api } from '.';
+import { getCookie } from '../services/cookies';
 import { UserProps } from '../types/userProps';
 
 export async function loginRequest(user: UserProps) {
@@ -15,6 +16,16 @@ export async function registerRequest(user: UserProps) {
     username: user.username,
     email: user.email,
     password: user.password,
+  });
+
+  return response.data;
+}
+
+export async function userDetailsRequest() {
+  const response = await Api.get('/user/details', {
+    headers: {
+      Authorization: getCookie(),
+    },
   });
 
   return response.data;
