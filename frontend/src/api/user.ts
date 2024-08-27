@@ -27,6 +27,5 @@ export async function userDetailsRequest() {
       Authorization: getCookie(),
     },
   });
-
   return response.data;
 }

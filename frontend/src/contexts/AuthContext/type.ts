@@ -3,5 +3,7 @@ import { UserProps } from '../../types/userProps';
 export interface AuthProps {
   authenticate: (user: UserProps) => Promise<boolean>;
   registerUser: (user: UserProps) => Promise<boolean>;
-  verifyUserToken: () => Promise<boolean>;
+  logout: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  userLogged: any;
 }

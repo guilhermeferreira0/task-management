@@ -7,8 +7,8 @@ function App(): JSX.Element {
   return (
     <>
       <Routes>
-        <Route path="/dashboard" element={<MainPage />} />
         <Route path="/" element={<FormPage />} />
+        <Route path="/dashboard" element={<MainPage />} />
       </Routes>
     </>
   );

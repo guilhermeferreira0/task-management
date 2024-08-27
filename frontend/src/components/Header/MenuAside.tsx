@@ -6,7 +6,6 @@ import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 
 export function MenuAside() {
   const { menuIsOpen, setMenuIsOpen } = useMenuContext();
-  console.log(menuIsOpen);
 
   return (
     <aside

@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MenuProvider } from '../../contexts/MenuContext';
 import { NavBar } from '../Header';
 import { MenuAside } from '../Header/MenuAside';
 import { DashboardPage } from '../Dashboard';
+import { useNavigate } from 'react-router-dom';
+import { getUserLocalStorage } from '../../contexts/AuthContext/util';
 
 export function MainPage(): JSX.Element {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = getUserLocalStorage();
+    if (!user) navigate('/');
+    return;
+  }, []);
+
   return (
     <>
       <MenuProvider>

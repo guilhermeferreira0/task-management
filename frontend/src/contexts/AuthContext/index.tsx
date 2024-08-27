@@ -7,6 +7,7 @@ import {
 } from '../../api/user';
 import { AuthProps } from './type';
 import { setCookie } from '../../services/cookies';
+import { setUserLocalStorage } from './util';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -15,13 +16,14 @@ interface AuthProviderProps {
 export const Context = createContext({} as AuthProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [, setUserLogged] = useState({});
+  const [userLogged, setUserLogged] = useState<null | UserProps>(null);
 
   async function authenticate(user: UserProps) {
     try {
       const response = await loginRequest(user);
       setUserLogged(user);
       setCookie(response.token);
+      setUserLocalStorage({ email: user.email });
       return true;
     } catch (e) {
       return false;
@@ -30,34 +32,38 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function registerUser(user: UserProps) {
     try {
-      const response = await registerRequest(user);
+      const response = await registerRequest({
+        username: user.username,
+        email: user.email,
+      });
       setUserLogged(user);
       setCookie(response.token);
+      setUserLocalStorage({ username: user.username, email: user.email });
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  async function verifyUserToken() {
-    try {
-      const response = await userDetailsRequest();
-      console.log(response);
-      return true;
-    } catch (e) {
-      return false;
-    }
+  function logout() {
+    setUserLogged(null);
+    setCookie('');
+    setUserLocalStorage(null);
   }
 
   useEffect(() => {
-    const response = async () => {
-      return await verifyUserToken();
-    };
-
-    if (!response) {
-      setCookie('');
-      setUserLogged({});
+    async function verifyUser() {
+      try {
+        const res = await userDetailsRequest();
+        setUserLogged(res.data);
+        setUserLocalStorage(res.data);
+      } catch (e) {
+        logout();
+      }
     }
+    verifyUser();
+
+    return;
   }, []);
 
   return (
@@ -65,7 +71,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         authenticate,
         registerUser,
-        verifyUserToken,
+        userLogged,
+        logout,
       }}
     >
       {children}
