@@ -3,9 +3,13 @@ import { MdManageSearch } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';
 import { CiLogout } from 'react-icons/ci';
 import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useAuth } from '../../contexts/AuthContext/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export function MenuAside() {
   const { menuIsOpen, setMenuIsOpen } = useMenuContext();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <aside
@@ -42,7 +46,13 @@ export function MenuAside() {
         </ul>
       </div>
 
-      <button className="flex items-center gap-3 bg-orange-100 rounded-xl px-6 py-3">
+      <button
+        className="flex items-center gap-3 bg-orange-100 rounded-xl px-6 py-3"
+        onClick={() => {
+          logout();
+          navigate('/');
+        }}
+      >
         <CiLogout />
         Log Out
       </button>

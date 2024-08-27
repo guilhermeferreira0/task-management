@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ListTask } from './ListTask';
+import { getAllTasks } from '../../api/task.';
 
 export function DashboardPage() {
+  useEffect(() => {
+    const fetchTask = async () => {
+      const { data } = await getAllTasks();
+      console.log(data);
+      return data;
+    };
+    fetchTask();
+  }, []);
+
   return (
     <section className="px-8 mt-11">
       <div className="flex justify-between">
