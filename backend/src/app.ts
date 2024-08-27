@@ -9,7 +9,7 @@ class App {
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(
       cors({
-        origin: 'http://localhost:3000/',
+        origin: 'http://localhost:3000',
         credentials: true,
         methods: 'GET,PUT,POST,OPTIONS,DELETE',
       }),
