@@ -20,7 +20,7 @@ export function LoginPage({ setPage }: LoginPageProps) {
   const {
     handleSubmit,
     register,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<IFormInput>({ mode: 'onChange' });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -92,7 +92,7 @@ export function LoginPage({ setPage }: LoginPageProps) {
         <button type="button" className="w-full" onClick={() => setPage(false)}>
           Dont´t have an account? Sign Up.
         </button>
-        <ButtonForm title="Send" disabled={isLoading} />
+        <ButtonForm title="Send" disabled={isSubmitting} />
       </div>
     </form>
   );

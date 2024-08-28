@@ -21,7 +21,7 @@ export function RegisterPage({ setPage }: LoginPageProps) {
   const {
     handleSubmit,
     register,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<IFormInput>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const response = await registerUser(data);
@@ -115,7 +115,7 @@ export function RegisterPage({ setPage }: LoginPageProps) {
         <button type="button" className="w-full" onClick={() => setPage(true)}>
           Already have an account? Sign in.
         </button>
-        <ButtonForm title="Register" disabled={isLoading} />
+        <ButtonForm title="Register" disabled={isSubmitting} />
       </div>
     </form>
   );
