@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
@@ -6,21 +6,27 @@ import { useTask } from '../../contexts/TaskContext/useTask';
 
 export function FormNewTask() {
   const { registerTask } = useTask();
+  const [submitError, setSubmitError] = useState(false);
 
   const {
     register,
-    formState: { isLoading },
+    formState: { errors, isSubmitting },
     handleSubmit,
+    reset,
   } = useForm<IFormTaskInput>();
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
-    console.log(data);
-    const response = await registerTask(data);
-    console.log(response);
+    const res = await registerTask(data);
+    if (!res) {
+      setSubmitError(true);
+      return;
+    }
+    reset();
+    window.location.reload();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} method="post">
       <h4 className="font-bold text-xl text-center">New Task</h4>
       <div className="flex flex-col gap-7 mt-8">
         <input
@@ -44,7 +50,22 @@ export function FormNewTask() {
           <option value="delayed">Delayed</option>
           <option value="completed">Completed</option>
         </select>
-        <ButtonForm title="Send" disabled={isLoading} />
+        {errors.title?.type === 'required' && (
+          <p role="alert" className="text-red-200">
+            Title is required
+          </p>
+        )}
+        {errors.description?.type === 'required' && (
+          <p role="alert" className="text-red-200">
+            Description is required
+          </p>
+        )}
+        {submitError && (
+          <p role="alert" className="text-red-200">
+            Task Invalid
+          </p>
+        )}
+        <ButtonForm title="Send" disabled={isSubmitting} />
       </div>
     </form>
   );

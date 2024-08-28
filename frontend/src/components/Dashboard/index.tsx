@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ListTask } from './ListTask';
-import { getAllTasks } from '../../api/task';
 import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 import { Modal } from '../Modal';
 import { FormNewTask } from '../Modal/FormNewTask';
+import { useTask } from '../../contexts/TaskContext/useTask';
 
 export function DashboardPage() {
   const { setModalIsOpen, modalIsOpen } = useMenuContext();
-
-  useEffect(() => {
-    const fetchTask = async () => {
-      const { data } = await getAllTasks();
-      console.log(data);
-      return data;
-    };
-    fetchTask();
-  }, []);
+  const { allTasks } = useTask();
+  console.log(allTasks);
 
   return (
     <section className="px-8 mt-11">

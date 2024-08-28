@@ -1,6 +1,7 @@
-import React, { createContext, ReactNode, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { TaskProps, IFormTaskInput } from '../../types/taskProps';
-import { registerTaskRequest } from '../../api/task';
+import { getAllTasks, registerTaskRequest } from '../../api/task';
 import { TaskContextProps } from './types';
 
 interface TaskProviderProps {
@@ -10,12 +11,24 @@ interface TaskProviderProps {
 export const Context = createContext({} as TaskContextProps);
 
 export function TaskProvider({ children }: TaskProviderProps) {
-  const [allTasks] = useState([] as TaskProps[]);
+  const [allTasks, setAllTasks] = useState([] as TaskProps[]);
 
   async function registerTask(data: IFormTaskInput) {
-    const response = await registerTaskRequest(data);
-    console.log(response);
+    try {
+      await registerTaskRequest(data);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      const { data } = await getAllTasks();
+      setAllTasks(data);
+    };
+    fetchTask();
+  }, []);
 
   return (
     <Context.Provider
