@@ -21,17 +21,17 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
         {tasks.map((task) => (
           <div
             key={task.id}
-            className="bg-white rounded-lg p-6 relative flex flex-col justify-between gap-4 shadow-lg hover:scale-105 transition-all"
+            className="bg-white rounded-md p-6 relative flex flex-col justify-between gap-4 shadow-lg hover:scale-105 transition-all"
           >
-            <div className="flex gap-2 lg:flex-col lg:gap-0">
+            <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
               <strong>Title:</strong>
               <p>{task.title}</p>
             </div>
-            <div className="flex gap-2 lg:flex-col lg:gap-0">
+            <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
               <strong>Description:</strong>
               <p className="line-clamp-3">{task.description}</p>
             </div>
-            <div className="flex gap-2 lg:flex-col lg:gap-0">
+            <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
               <strong>created:</strong>
               <p>{task.createdAt?.split(':')[0]}</p>
             </div>
