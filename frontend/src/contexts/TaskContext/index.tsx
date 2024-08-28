@@ -2,6 +2,7 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { TaskProps, IFormTaskInput } from '../../types/taskProps';
 import {
+  deleteTaskRequest,
   getAllTasks,
   registerTaskRequest,
   updateTaskRequest,
@@ -35,6 +36,15 @@ export function TaskProvider({ children }: TaskProviderProps) {
     }
   }
 
+  async function deleteTask(id: string) {
+    try {
+      await deleteTaskRequest(id);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   useEffect(() => {
     const fetchTask = async () => {
       const { data } = await getAllTasks();
@@ -49,6 +59,7 @@ export function TaskProvider({ children }: TaskProviderProps) {
         allTasks,
         registerTask,
         updateTask,
+        deleteTask,
       }}
     >
       {children}

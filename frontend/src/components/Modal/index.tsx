@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 
 interface ModalProps {
   open: boolean;
@@ -7,10 +8,15 @@ interface ModalProps {
 }
 
 export function Modal({ open, onClose, children }: ModalProps) {
+  const { setUpdateTaskModal } = useMenuContext();
+
   return (
     // backdrop
     <div
-      onClick={onClose}
+      onClick={() => {
+        setUpdateTaskModal(null);
+        onClose();
+      }}
       className={`
       fixed inset-0 flex justify-center items-center transition-colors ${
         open ? 'visible bg-black/20 z-50' : 'invisible'
@@ -18,7 +24,9 @@ export function Modal({ open, onClose, children }: ModalProps) {
     `}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         className={`
           bg-white rounded-xl shadow p-6 w-2/5 transition-all ${
             open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'

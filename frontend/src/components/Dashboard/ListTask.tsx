@@ -2,6 +2,7 @@ import React from 'react';
 import { TaskProps } from '../../types/taskProps';
 import { MdOutlineModeEdit, MdOutlineDelete } from 'react-icons/md';
 import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useTask } from '../../contexts/TaskContext/useTask';
 
 interface ListTaskProps {
   title: string;
@@ -10,31 +11,48 @@ interface ListTaskProps {
 }
 
 export function ListTask({ title, classColor, tasks }: ListTaskProps) {
-  const { setModalIsOpen } = useMenuContext();
+  const { setModalIsOpen, setUpdateTaskModal } = useMenuContext();
+  const { deleteTask } = useTask();
 
   return (
     <section className={`${classColor} w-full rounded-md p-3`}>
       <h4 className={`font-semibold text-gray-600`}>{title}</h4>
       <div className="flex flex-col gap-9 mt-4">
         {tasks.map((task) => (
-          <div key={task.id} className="bg-white rounded-lg p-6 relative">
-            <div className="flex gap-3">
+          <div
+            key={task.id}
+            className="bg-white rounded-lg p-6 relative flex flex-col justify-between gap-4 shadow-lg hover:scale-105 transition-all"
+          >
+            <div className="flex lg:flex-col">
               <strong>Title:</strong>
               <p>{task.title}</p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex lg:flex-col">
               <strong>Description:</strong>
               <p>{task.description}</p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex lg:flex-col">
               <strong>created:</strong>
-              <p>{task.createdAt}</p>
+              <p>{task.createdAt?.split(':')[0]}</p>
             </div>
             <div className="absolute top-3 right-3 gap-4 flex">
-              <button onClick={() => setModalIsOpen(true)}>
+              <button
+                onClick={() => {
+                  setUpdateTaskModal(task);
+                  setModalIsOpen(true);
+                }}
+              >
                 <MdOutlineModeEdit size={22} color="blue" />
               </button>
-              <button>
+              <button
+                onClick={async () => {
+                  new Promise(() => {
+                    deleteTask(task.id as string);
+                    window.location.reload();
+                    return;
+                  });
+                }}
+              >
                 <MdOutlineDelete size={22} color="red" />
               </button>
             </div>

@@ -3,15 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
 import { useTask } from '../../contexts/TaskContext/useTask';
+import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 
-interface FormUpdateTaskProps {
-  id: string;
-}
-
-export function FormUpdateTask({ id }: FormUpdateTaskProps) {
+export function FormUpdateTask() {
   const { updateTask } = useTask();
   const [submitError, setSubmitError] = useState(false);
-
+  const { updateTaskModal } = useMenuContext();
   const {
     register,
     formState: { errors, isSubmitting },
@@ -20,11 +17,12 @@ export function FormUpdateTask({ id }: FormUpdateTaskProps) {
   } = useForm<IFormTaskInput>();
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
-    const res = await updateTask(data, id);
+    const res = await updateTask(data, updateTaskModal?.id as string);
     if (!res) {
       setSubmitError(true);
       return;
     }
+    console.log(res);
     reset();
     window.location.reload();
   };
@@ -38,16 +36,18 @@ export function FormUpdateTask({ id }: FormUpdateTaskProps) {
           className="bg-[#292929] border-2 border-[#3e3e3e] rounded-lg text-white px-6 py-3 text-base hover:border-[#fff] cursor-pointer transition"
           type="text"
           {...register('title', { required: true })}
+          defaultValue={updateTaskModal?.title}
         />
         <textarea
           placeholder="Description"
           className="bg-[#292929] border-2 border-[#3e3e3e] rounded-lg text-white px-6 py-3 text-base hover:border-[#fff] cursor-pointer transition overflow-y-hidden"
           rows={4}
+          defaultValue={updateTaskModal?.description}
           {...register('description', { required: true })}
         />
         <select
           {...register('progress', { required: true })}
-          defaultValue={'pending'}
+          defaultValue={updateTaskModal?.progress}
         >
           <option value="pending">ToDo</option>
           <option value="inProgress">In Progress</option>
@@ -69,7 +69,7 @@ export function FormUpdateTask({ id }: FormUpdateTaskProps) {
             Task Invalid
           </p>
         )}
-        <ButtonForm title="Send" disabled={isSubmitting} />
+        <ButtonForm title="Updated" disabled={isSubmitting} />
       </div>
     </form>
   );

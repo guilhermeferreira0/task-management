@@ -4,4 +4,5 @@ export interface TaskContextProps {
   allTasks: TaskProps[];
   registerTask: (data: IFormTaskInput) => Promise<boolean>;
   updateTask: (data: IFormTaskInput, id: string) => Promise<boolean>;
+  deleteTask: (id: string) => Promise<boolean>;
 }

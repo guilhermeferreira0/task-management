@@ -21,7 +21,16 @@ export async function registerTaskRequest(data: IFormTaskInput) {
 }
 
 export async function updateTaskRequest(data: IFormTaskInput, id: string) {
-  const response = await Api.post(`/task/update/${id}`, data, {
+  const response = await Api.put(`/task/update/${id}`, data, {
+    headers: {
+      Authorization: getCookie(),
+    },
+  });
+  return response.data;
+}
+
+export async function deleteTaskRequest(id: string) {
+  const response = await Api.delete(`/task/delete/${id}`, {
     headers: {
       Authorization: getCookie(),
     },

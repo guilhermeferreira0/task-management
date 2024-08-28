@@ -5,11 +5,12 @@ import { Modal } from '../Modal';
 import { FormNewTask } from '../Modal/FormNewTask';
 import { useTask } from '../../contexts/TaskContext/useTask';
 import { ProgressTaskProps } from '../../types/taskProps';
+import { FormUpdateTask } from '../../components/Modal/FormUpdateTask';
 
 export function DashboardPage() {
-  const { setModalIsOpen, modalIsOpen } = useMenuContext();
+  const { setModalIsOpen, modalIsOpen, updateTaskModal, setUpdateTaskModal } =
+    useMenuContext();
   const { allTasks } = useTask();
-  console.log(allTasks);
 
   return (
     <section className="px-8 mt-11">
@@ -17,7 +18,10 @@ export function DashboardPage() {
         <h1 className="text-lg font-semibold">Tasks</h1>
         <button
           className="bg-blue-600 text-white px-8 py-2 rounded-md text-sm"
-          onClick={() => setModalIsOpen(true)}
+          onClick={() => {
+            setModalIsOpen(true);
+            setUpdateTaskModal(null);
+          }}
         >
           New Task +
         </button>
@@ -54,7 +58,7 @@ export function DashboardPage() {
       </div>
 
       <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <FormNewTask />
+        {updateTaskModal ? <FormUpdateTask /> : <FormNewTask />}
       </Modal>
     </section>
   );
