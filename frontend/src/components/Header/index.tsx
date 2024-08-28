@@ -2,9 +2,11 @@ import React from 'react';
 import defaultProfile from '../../assets/images/img_avatar.png';
 import { FiMenu } from 'react-icons/fi';
 import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useAuth } from '../../contexts/AuthContext/useAuth';
 
 export function NavBar() {
   const { setMenuIsOpen } = useMenuContext();
+  const { userLogged } = useAuth();
 
   return (
     <header className="fixed flex items-center justify-between border-b bg-white h-24 px-8 gap-8 top-0 right-0 w-[65%] lg:w-[calc(100%-256px)] max-md:w-full">
@@ -38,6 +40,7 @@ export function NavBar() {
           </svg>
         </div>
       </div>
+      <p>{userLogged.email}</p>
       <div className="w-12 rounded-xl overflow-hidden">
         <img
           src={defaultProfile}
