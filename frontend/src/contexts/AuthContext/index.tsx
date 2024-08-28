@@ -17,9 +17,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function authenticate(user: UserProps) {
     try {
       const response = await loginRequest(user);
-      setUserLogged(user);
+      setUserLogged({ username: user.username, email: user.email });
       setCookie(response.token);
-      setUserLocalStorage({ email: user.email });
+      setUserLocalStorage({ email: user.email, username: user.username });
       return true;
     } catch (e) {
       return false;
@@ -28,11 +28,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function registerUser(user: UserProps) {
     try {
-      const response = await registerRequest({
-        username: user.username,
-        email: user.email,
-      });
-      setUserLogged(user);
+      const response = await registerRequest(user);
+      setUserLogged({ username: user.username, email: user.email });
       setCookie(response.token);
       setUserLocalStorage({ username: user.username, email: user.email });
       return true;
