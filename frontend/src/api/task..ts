@@ -1,8 +1,18 @@
 import { Api } from '.';
 import { getCookie } from '../services/cookies';
+import { IFormTaskInput } from '../types/taskProps';
 
 export async function getAllTasks() {
   const response = await Api.get('/task', {
+    headers: {
+      Authorization: getCookie(),
+    },
+  });
+  return response.data;
+}
+
+export async function registerTaskRequest(data: IFormTaskInput) {
+  const response = await Api.post('/task/register', data, {
     headers: {
       Authorization: getCookie(),
     },
