@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { TaskProps, IFormTaskInput } from '../../types/taskProps';
-import { getAllTasks, registerTaskRequest } from '../../api/task';
+import {
+  getAllTasks,
+  registerTaskRequest,
+  updateTaskRequest,
+} from '../../api/task';
 import { TaskContextProps } from './types';
 
 interface TaskProviderProps {
@@ -22,6 +26,15 @@ export function TaskProvider({ children }: TaskProviderProps) {
     }
   }
 
+  async function updateTask(data: IFormTaskInput, id: string) {
+    try {
+      await updateTaskRequest(data, id);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   useEffect(() => {
     const fetchTask = async () => {
       const { data } = await getAllTasks();
@@ -35,6 +48,7 @@ export function TaskProvider({ children }: TaskProviderProps) {
       value={{
         allTasks,
         registerTask,
+        updateTask,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 import { Modal } from '../Modal';
 import { FormNewTask } from '../Modal/FormNewTask';
 import { useTask } from '../../contexts/TaskContext/useTask';
+import { ProgressTaskProps } from '../../types/taskProps';
 
 export function DashboardPage() {
   const { setModalIsOpen, modalIsOpen } = useMenuContext();
@@ -22,10 +23,34 @@ export function DashboardPage() {
         </button>
       </div>
       <div className="grid lg:grid-cols-4 gap-3 mt-5">
-        <ListTask title="toDo" classColor="bg-blue-100" />
-        <ListTask title="In Progress" classColor="bg-orange-100" />
-        <ListTask title="Delayed" classColor="bg-red-100" />
-        <ListTask title="Completed" classColor="bg-gray-100" />
+        <ListTask
+          title="toDo"
+          classColor="bg-blue-100"
+          tasks={allTasks.filter(
+            (task) => task.progress === ProgressTaskProps.pending,
+          )}
+        />
+        <ListTask
+          title="In Progress"
+          classColor="bg-orange-100"
+          tasks={allTasks.filter(
+            (task) => task.progress === ProgressTaskProps.inProgress,
+          )}
+        />
+        <ListTask
+          title="Delayed"
+          classColor="bg-red-100"
+          tasks={allTasks.filter(
+            (task) => task.progress === ProgressTaskProps.delayed,
+          )}
+        />
+        <ListTask
+          title="Completed"
+          classColor="bg-gray-100"
+          tasks={allTasks.filter(
+            (task) => task.progress === ProgressTaskProps.completed,
+          )}
+        />
       </div>
 
       <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>

@@ -19,3 +19,12 @@ export async function registerTaskRequest(data: IFormTaskInput) {
   });
   return response.data;
 }
+
+export async function updateTaskRequest(data: IFormTaskInput, id: string) {
+  const response = await Api.post(`/task/update/${id}`, data, {
+    headers: {
+      Authorization: getCookie(),
+    },
+  });
+  return response.data;
+}
