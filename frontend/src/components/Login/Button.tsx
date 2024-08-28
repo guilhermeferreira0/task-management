@@ -6,6 +6,17 @@ interface ButtonFormProps {
 }
 
 export function ButtonForm({ title, disabled }: ButtonFormProps) {
+  if (disabled) {
+    return (
+      <button
+        className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-neutral-200 font-medium cursor-default bg-blue-200 pointer-events-none"
+        disabled={true}
+      >
+        Loading...
+      </button>
+    );
+  }
+
   return (
     <button
       className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-neutral-200 font-medium cursor-pointer"
