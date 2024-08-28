@@ -23,6 +23,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         }
         setUserLogged(res.data);
         setUserLocalStorage(res.data);
+        return;
       } catch (e) {
         logout();
         navigate('/');

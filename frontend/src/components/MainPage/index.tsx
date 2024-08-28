@@ -6,6 +6,7 @@ import { DashboardPage } from '../Dashboard';
 import { useNavigate } from 'react-router-dom';
 import { getUserLocalStorage } from '../../contexts/AuthContext/util';
 import { TaskProvider } from '../../contexts/TaskContext';
+import { FilterProvider } from '../../contexts/FilterContext';
 
 export function MainPage(): JSX.Element {
   const navigate = useNavigate();
@@ -19,14 +20,16 @@ export function MainPage(): JSX.Element {
   return (
     <>
       <TaskProvider>
-        <MenuProvider>
-          <NavBar />
-          <MenuAside />
+        <FilterProvider>
+          <MenuProvider>
+            <NavBar />
+            <MenuAside />
 
-          <main className="absolute top-24 md:left-[35%] lg:left-64 left-0 right-0">
-            <DashboardPage />
-          </main>
-        </MenuProvider>
+            <main className="absolute top-24 md:left-[40%] lg:left-64 left-0 right-0">
+              <DashboardPage />
+            </main>
+          </MenuProvider>
+        </FilterProvider>
       </TaskProvider>
     </>
   );

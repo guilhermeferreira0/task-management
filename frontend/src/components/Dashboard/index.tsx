@@ -6,11 +6,18 @@ import { FormNewTask } from '../Modal/FormNewTask';
 import { useTask } from '../../contexts/TaskContext/useTask';
 import { ProgressTaskProps } from '../../types/taskProps';
 import { FormUpdateTask } from '../../components/Modal/FormUpdateTask';
+import { useFilter } from '../../contexts/FilterContext/useFilter';
 
 export function DashboardPage() {
+  const { deferedSearch } = useFilter();
   const { setModalIsOpen, modalIsOpen, updateTaskModal, setUpdateTaskModal } =
     useMenu();
   const { allTasks } = useTask();
+
+  const tasksFilter = allTasks.filter((task) => {
+    console.log(task.description);
+    return task.description.toLowerCase().includes(deferedSearch.toLowerCase());
+  });
 
   return (
     <section className="px-8 mt-11">
@@ -26,32 +33,32 @@ export function DashboardPage() {
           New Task +
         </button>
       </div>
-      <div className="grid lg:grid-cols-4 gap-3 mt-5">
+      <div className="grid xl:grid-cols-4 gap-3 mt-5">
         <ListTask
           title="toDo"
           classColor="bg-blue-100"
-          tasks={allTasks.filter(
+          tasks={tasksFilter.filter(
             (task) => task.progress === ProgressTaskProps.pending,
           )}
         />
         <ListTask
           title="In Progress"
           classColor="bg-orange-100"
-          tasks={allTasks.filter(
+          tasks={tasksFilter.filter(
             (task) => task.progress === ProgressTaskProps.inProgress,
           )}
         />
         <ListTask
           title="Delayed"
           classColor="bg-red-100"
-          tasks={allTasks.filter(
+          tasks={tasksFilter.filter(
             (task) => task.progress === ProgressTaskProps.delayed,
           )}
         />
         <ListTask
           title="Completed"
           classColor="bg-gray-100"
-          tasks={allTasks.filter(
+          tasks={tasksFilter.filter(
             (task) => task.progress === ProgressTaskProps.completed,
           )}
         />
