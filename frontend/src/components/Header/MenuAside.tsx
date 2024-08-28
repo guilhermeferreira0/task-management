@@ -13,7 +13,7 @@ export function MenuAside() {
 
   return (
     <aside
-      className={`fixed top-0 w-[35%] lg:w-64 bg-gray-100 z-10 h-full flex flex-col justify-between items-center p-7 shadow-2xl ${
+      className={`fixed top-0 w-[35%] lg:w-64 bg-gray-100 z-20 h-full flex flex-col justify-between items-center p-7 shadow-2xl ${
         menuIsOpen ? 'left-0' : 'max-md:-left-[35%]'
       }`}
     >

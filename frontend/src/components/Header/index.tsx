@@ -9,7 +9,7 @@ export function NavBar() {
   const { userLogged } = useAuth();
 
   return (
-    <header className="fixed flex items-center justify-between border-b bg-white h-24 px-8 gap-8 top-0 right-0 w-[65%] lg:w-[calc(100%-256px)] max-md:w-full">
+    <header className="fixed flex items-center justify-between border-b bg-white h-24 px-8 gap-8 top-0 right-0 w-[65%] lg:w-[calc(100%-256px)] max-md:w-full z-10">
       <button
         onClick={() => setMenuIsOpen(true)}
         className="md:opacity-0 z-40 md:hidden"
@@ -40,8 +40,8 @@ export function NavBar() {
           </svg>
         </div>
       </div>
-      <p>{userLogged && userLogged.email}</p>
-      <div className="w-12 rounded-xl overflow-hidden">
+      <p className="max-sm:hidden">{userLogged && userLogged.email}</p>
+      <div className="w-12 rounded-xl overflow-hidden max-sm:hidden">
         <img
           src={defaultProfile}
           alt="default profile"
