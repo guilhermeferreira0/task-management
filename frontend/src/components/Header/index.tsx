@@ -40,7 +40,7 @@ export function NavBar() {
           </svg>
         </div>
       </div>
-      <p>{userLogged.email}</p>
+      <p>{userLogged && userLogged.email}</p>
       <div className="w-12 rounded-xl overflow-hidden">
         <img
           src={defaultProfile}
