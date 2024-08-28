@@ -1,10 +1,6 @@
-import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 import { UserProps } from '../../types/userProps';
-import {
-  loginRequest,
-  registerRequest,
-  userDetailsRequest,
-} from '../../api/user';
+import { loginRequest, registerRequest } from '../../api/user';
 import { AuthProps } from './type';
 import { setCookie } from '../../services/cookies';
 import { setUserLocalStorage } from './util';
@@ -51,21 +47,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUserLocalStorage(null);
   }
 
-  useEffect(() => {
-    async function verifyUser() {
-      try {
-        const res = await userDetailsRequest();
-        setUserLogged(res.data);
-        setUserLocalStorage(res.data);
-      } catch (e) {
-        logout();
-      }
-    }
-    verifyUser();
-
-    return;
-  }, []);
-
   return (
     <Context.Provider
       value={{
@@ -73,6 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         registerUser,
         userLogged,
         logout,
+        setUserLogged,
       }}
     >
       {children}
