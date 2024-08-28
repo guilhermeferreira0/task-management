@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -22,7 +21,7 @@ export function RegisterPage({ setPage }: LoginPageProps) {
   const {
     handleSubmit,
     register,
-    formState: { errors, isLoading, isSubmitting },
+    formState: { errors, isLoading },
   } = useForm<IFormInput>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const response = await registerUser(data);
