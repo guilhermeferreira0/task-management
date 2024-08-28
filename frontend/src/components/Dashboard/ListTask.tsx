@@ -1,7 +1,7 @@
 import React from 'react';
 import { TaskProps } from '../../types/taskProps';
 import { MdOutlineModeEdit, MdOutlineDelete } from 'react-icons/md';
-import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useTask } from '../../contexts/TaskContext/useTask';
 
 interface ListTaskProps {
@@ -11,7 +11,7 @@ interface ListTaskProps {
 }
 
 export function ListTask({ title, classColor, tasks }: ListTaskProps) {
-  const { setModalIsOpen, setUpdateTaskModal } = useMenuContext();
+  const { setModalIsOpen, setUpdateTaskModal } = useMenu();
   const { deleteTask } = useTask();
 
   return (
@@ -23,15 +23,15 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
             key={task.id}
             className="bg-white rounded-lg p-6 relative flex flex-col justify-between gap-4 shadow-lg hover:scale-105 transition-all"
           >
-            <div className="flex lg:flex-col">
+            <div className="flex gap-2 lg:flex-col lg:gap-0">
               <strong>Title:</strong>
               <p>{task.title}</p>
             </div>
-            <div className="flex lg:flex-col">
+            <div className="flex gap-2 lg:flex-col lg:gap-0">
               <strong>Description:</strong>
-              <p>{task.description}</p>
+              <p className="line-clamp-3">{task.description}</p>
             </div>
-            <div className="flex lg:flex-col">
+            <div className="flex gap-2 lg:flex-col lg:gap-0">
               <strong>created:</strong>
               <p>{task.createdAt?.split(':')[0]}</p>
             </div>

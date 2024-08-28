@@ -2,12 +2,12 @@ import React from 'react';
 import { MdManageSearch } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';
 import { CiLogout } from 'react-icons/ci';
-import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 export function MenuAside() {
-  const { menuIsOpen, setMenuIsOpen } = useMenuContext();
+  const { menuIsOpen, setMenuIsOpen } = useMenu();
   const { logout } = useAuth();
   const navigate = useNavigate();
 

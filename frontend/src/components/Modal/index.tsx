@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 
 interface ModalProps {
   open: boolean;
@@ -8,7 +8,7 @@ interface ModalProps {
 }
 
 export function Modal({ open, onClose, children }: ModalProps) {
-  const { setUpdateTaskModal } = useMenuContext();
+  const { setUpdateTaskModal } = useMenu();
 
   return (
     // backdrop

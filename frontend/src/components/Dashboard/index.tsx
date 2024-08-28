@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListTask } from './ListTask';
-import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { Modal } from '../Modal';
 import { FormNewTask } from '../Modal/FormNewTask';
 import { useTask } from '../../contexts/TaskContext/useTask';
@@ -9,7 +9,7 @@ import { FormUpdateTask } from '../../components/Modal/FormUpdateTask';
 
 export function DashboardPage() {
   const { setModalIsOpen, modalIsOpen, updateTaskModal, setUpdateTaskModal } =
-    useMenuContext();
+    useMenu();
   const { allTasks } = useTask();
 
   return (

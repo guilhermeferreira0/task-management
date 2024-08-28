@@ -3,12 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
 import { useTask } from '../../contexts/TaskContext/useTask';
-import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 
 export function FormUpdateTask() {
   const { updateTask } = useTask();
   const [submitError, setSubmitError] = useState(false);
-  const { updateTaskModal } = useMenuContext();
+  const { updateTaskModal } = useMenu();
   const {
     register,
     formState: { errors, isSubmitting },

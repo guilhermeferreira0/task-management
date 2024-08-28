@@ -1,11 +1,11 @@
 import React from 'react';
 import defaultProfile from '../../assets/images/img_avatar.png';
 import { FiMenu } from 'react-icons/fi';
-import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 
 export function NavBar() {
-  const { setMenuIsOpen } = useMenuContext();
+  const { setMenuIsOpen } = useMenu();
   const { userLogged } = useAuth();
 
   return (
