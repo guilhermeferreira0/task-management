@@ -1,14 +1,18 @@
 export interface IFormTaskInput {
   title: string;
   description: string;
-  progress: string;
+  progress: ProgressTaskProps;
 }
 
-export interface TaskProps {
+export interface TaskProps extends IFormTaskInput {
   id?: string;
-  title: string;
-  description: string;
-  progress: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export enum ProgressTaskProps {
+  pending = 'pending',
+  inProgress = 'inProgress',
+  delayed = 'delayed',
+  completed = 'completed',
 }
