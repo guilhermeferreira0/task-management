@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,7 @@ interface IFormInput {
 }
 
 export function LoginPage({ setPage }: LoginPageProps) {
+  const [submitError, setSubmitError] = useState(false);
   const navigate = useNavigate();
   const { authenticate } = useAuth();
   const {
@@ -24,7 +25,10 @@ export function LoginPage({ setPage }: LoginPageProps) {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const response = await authenticate(data);
-    if (!response) return;
+    if (!response) {
+      setSubmitError(true);
+      return;
+    }
     return navigate('/dashboard');
   };
 
@@ -77,6 +81,11 @@ export function LoginPage({ setPage }: LoginPageProps) {
       {errors.password?.type === 'minLength' && (
         <p role="alert" className="text-red-200">
           Password must be 8 characters
+        </p>
+      )}
+      {submitError && (
+        <p role="alert" className="text-red-200">
+          Password or Email invalid
         </p>
       )}
       <div className="flex flex-col gap-5">
