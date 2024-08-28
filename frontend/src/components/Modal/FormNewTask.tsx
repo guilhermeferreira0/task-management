@@ -2,16 +2,21 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
+import { useTask } from '../../contexts/TaskContext/useTask';
 
 export function FormNewTask() {
+  const { registerTask } = useTask();
+
   const {
     register,
     formState: { isLoading },
     handleSubmit,
   } = useForm<IFormTaskInput>();
 
-  const onSubmit: SubmitHandler<IFormTaskInput> = (data) => {
+  const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     console.log(data);
+    const response = await registerTask(data);
+    console.log(response);
   };
 
   return (
@@ -32,9 +37,9 @@ export function FormNewTask() {
         />
         <select
           {...register('progress', { required: true })}
-          defaultValue={'toDo'}
+          defaultValue={'pending'}
         >
-          <option value="toDo">ToDo</option>
+          <option value="pending">ToDo</option>
           <option value="inProgress">In Progress</option>
           <option value="delayed">Delayed</option>
           <option value="completed">Completed</option>

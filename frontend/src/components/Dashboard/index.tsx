@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ListTask } from './ListTask';
-import { getAllTasks } from '../../api/task.';
+import { getAllTasks } from '../../api/task';
 import { useMenuContext } from '../../contexts/MenuContext/userMenuContext';
 import { Modal } from '../Modal';
 import { FormNewTask } from '../Modal/FormNewTask';
