@@ -9,7 +9,7 @@ import { FormUpdateTask } from '../../components/Modal/FormUpdateTask';
 import { useFilter } from '../../contexts/FilterContext/useFilter';
 
 export function DashboardPage() {
-  const { search } = useFilter();
+  const { search, categoryTask } = useFilter();
   const { setModalIsOpen, modalIsOpen, updateTaskModal, setUpdateTaskModal } =
     useMenu();
   const { allTasks } = useTask();
@@ -18,6 +18,10 @@ export function DashboardPage() {
     const taskLower = task.description.toLowerCase();
     return taskLower.includes(deferedSearch.toLowerCase());
   });
+
+  const getTasksByCategory = (category: ProgressTaskProps) => {
+    return tasksFilter.filter((task) => task.progress === category);
+  };
 
   return (
     <section className="px-8 mt-11">
@@ -34,34 +38,66 @@ export function DashboardPage() {
         </button>
       </div>
       <div className="grid xl:grid-cols-4 gap-3 mt-5">
-        <ListTask
-          title="toDo"
-          classColor="bg-blue-100"
-          tasks={tasksFilter.filter(
-            (task) => task.progress === ProgressTaskProps.pending,
-          )}
-        />
-        <ListTask
-          title="In Progress"
-          classColor="bg-orange-100"
-          tasks={tasksFilter.filter(
-            (task) => task.progress === ProgressTaskProps.inProgress,
-          )}
-        />
-        <ListTask
-          title="Delayed"
-          classColor="bg-red-100"
-          tasks={tasksFilter.filter(
-            (task) => task.progress === ProgressTaskProps.delayed,
-          )}
-        />
-        <ListTask
-          title="Completed"
-          classColor="bg-gray-100"
-          tasks={tasksFilter.filter(
-            (task) => task.progress === ProgressTaskProps.completed,
-          )}
-        />
+        {!categoryTask && (
+          <>
+            <ListTask
+              title="toDo"
+              classColor="bg-blue-100"
+              tasks={getTasksByCategory(ProgressTaskProps.pending)}
+            />
+            <ListTask
+              title="In Progress"
+              classColor="bg-orange-100"
+              tasks={getTasksByCategory(ProgressTaskProps.inProgress)}
+            />
+            <ListTask
+              title="Delayed"
+              classColor="bg-red-100"
+              tasks={getTasksByCategory(ProgressTaskProps.delayed)}
+            />
+            <ListTask
+              title="Completed"
+              classColor="bg-gray-100"
+              tasks={getTasksByCategory(ProgressTaskProps.completed)}
+            />
+          </>
+        )}
+        {categoryTask === ProgressTaskProps.pending && (
+          <>
+            <ListTask
+              title="toDo"
+              classColor="bg-blue-100"
+              tasks={getTasksByCategory(ProgressTaskProps.pending)}
+            />
+          </>
+        )}
+        {categoryTask === ProgressTaskProps.inProgress && (
+          <>
+            <ListTask
+              title="In Progress"
+              classColor="bg-orange-100"
+              tasks={getTasksByCategory(ProgressTaskProps.inProgress)}
+            />
+          </>
+        )}
+        {categoryTask === ProgressTaskProps.delayed && (
+          <>
+            <ListTask
+              title="Delayed"
+              classColor="bg-red-100"
+              tasks={getTasksByCategory(ProgressTaskProps.delayed)}
+            />
+          </>
+        )}
+        {categoryTask === ProgressTaskProps.completed && (
+          <>
+            <ListTask
+              title="Completed"
+              classColor="bg-gray-100"
+              tasks={getTasksByCategory(ProgressTaskProps.completed)}
+            />
+          </>
+        )}
       </div>
 
       <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>

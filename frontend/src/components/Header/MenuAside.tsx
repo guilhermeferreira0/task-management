@@ -5,9 +5,12 @@ import { CiLogout } from 'react-icons/ci';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useFilter } from '../../contexts/FilterContext/useFilter';
+import { ProgressTaskProps } from '../../types/taskProps';
 
 export function MenuAside() {
   const { menuIsOpen, setMenuIsOpen } = useMenu();
+  const { setCategoryTask } = useFilter();
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -29,19 +32,31 @@ export function MenuAside() {
         </h3>
         <ul className="list-inside list-none gap-5 flex flex-col text-blue-700 font-medium">
           <li>
-            <a href="">Dashboard</a>
+            <button onClick={() => setCategoryTask(null)}>Dashboard</button>
           </li>
           <li>
-            <a href="">ToDo</a>
+            <button onClick={() => setCategoryTask(ProgressTaskProps.pending)}>
+              ToDo
+            </button>
           </li>
           <li>
-            <a href="">In Progress</a>
+            <button
+              onClick={() => setCategoryTask(ProgressTaskProps.inProgress)}
+            >
+              In Progress
+            </button>
           </li>
           <li>
-            <a href="">Delayed</a>
+            <button onClick={() => setCategoryTask(ProgressTaskProps.delayed)}>
+              Delayed
+            </button>
           </li>
           <li>
-            <a href="">Completed</a>
+            <button
+              onClick={() => setCategoryTask(ProgressTaskProps.completed)}
+            >
+              Completed
+            </button>
           </li>
         </ul>
       </div>
