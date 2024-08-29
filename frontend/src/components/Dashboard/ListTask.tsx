@@ -3,6 +3,7 @@ import { TaskProps } from '../../types/taskProps';
 import { MdOutlineModeEdit, MdOutlineDelete } from 'react-icons/md';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useTask } from '../../contexts/TaskContext/useTask';
+import { notify } from '../Toasts/notify';
 
 interface ListTaskProps {
   title: string;
@@ -48,7 +49,8 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
                 onClick={async () => {
                   new Promise(() => {
                     deleteTask(task.id as string);
-                    window.location.reload();
+                    notify('success', 'Task Deleted');
+                    setTimeout(() => window.location.reload(), 2000);
                     return;
                   });
                 }}

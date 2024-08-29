@@ -4,6 +4,7 @@ import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
 import { useTask } from '../../contexts/TaskContext/useTask';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
+import { notify } from '../Toasts/notify';
 
 export function FormUpdateTask() {
   const { updateTask } = useTask();
@@ -11,20 +12,22 @@ export function FormUpdateTask() {
   const { updateTaskModal } = useMenu();
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isLoading },
     handleSubmit,
     reset,
   } = useForm<IFormTaskInput>();
+  console.log(isLoading);
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     const res = await updateTask(data, updateTaskModal?.id as string);
     if (!res) {
       setSubmitError(true);
+      notify('warning', 'Updated Error');
       return;
     }
-    console.log(res);
+    notify('success', 'Task Updated');
     reset();
-    window.location.reload();
+    return new Promise(() => setTimeout(() => window.location.reload(), 2000));
   };
 
   return (

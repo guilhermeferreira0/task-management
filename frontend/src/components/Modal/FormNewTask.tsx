@@ -3,11 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
 import { useTask } from '../../contexts/TaskContext/useTask';
+import { notify } from '../Toasts/notify';
 
 export function FormNewTask() {
   const { registerTask } = useTask();
   const [submitError, setSubmitError] = useState(false);
-  console.log('FORM NEW');
+
   const {
     register,
     formState: { errors, isSubmitting },
@@ -19,10 +20,13 @@ export function FormNewTask() {
     const res = await registerTask(data);
     if (!res) {
       setSubmitError(true);
+      notify('warning', 'Error Task');
       return;
     }
+
     reset();
-    window.location.reload();
+    notify('success', 'Task created!');
+    return new Promise(() => setTimeout(() => window.location.reload(), 2000));
   };
 
   return (

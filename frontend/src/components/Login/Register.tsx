@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ButtonForm } from './Button';
+import { notify } from '../Toasts/notify';
 
 interface LoginPageProps {
   setPage: (vl: boolean) => void;
@@ -27,11 +28,12 @@ export function RegisterPage({ setPage }: LoginPageProps) {
     const response = await registerUser(data);
     if (!response) {
       setSubmitError(true);
+      notify('warning', 'Register Error!!');
       return;
     }
 
-    navigate('/dashboard');
-    return;
+    notify('success', 'User Register!');
+    return new Promise(() => setTimeout(() => navigate('/dashboard'), 2000));
   };
 
   return (

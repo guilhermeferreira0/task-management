@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { ButtonForm } from './Button';
+import { notify } from '../Toasts/notify';
+import { Toast } from '../Toasts';
 
 interface LoginPageProps {
   setPage: (vl: boolean) => void;
@@ -20,6 +22,7 @@ export function LoginPage({ setPage }: LoginPageProps) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<IFormInput>({ mode: 'onChange' });
 
@@ -27,9 +30,12 @@ export function LoginPage({ setPage }: LoginPageProps) {
     const response = await authenticate(data);
     if (!response) {
       setSubmitError(true);
+      notify('warning', 'Error login');
       return;
     }
-    return navigate('/dashboard');
+    reset();
+    notify('success', 'Login succesful');
+    return new Promise(() => setTimeout(() => navigate('/dashboard'), 2000));
   };
 
   return (
@@ -94,6 +100,7 @@ export function LoginPage({ setPage }: LoginPageProps) {
         </button>
         <ButtonForm title="Send" disabled={isSubmitting} />
       </div>
+      <Toast />
     </form>
   );
 }

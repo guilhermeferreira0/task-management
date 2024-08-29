@@ -13,7 +13,9 @@ export function MainPage(): JSX.Element {
 
   useEffect(() => {
     const user = getUserLocalStorage();
-    if (!user) navigate('/');
+    if (!user) {
+      navigate('/');
+    }
     return;
   }, []);
 

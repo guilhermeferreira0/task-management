@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 
-interface ButtonFormProps {
+interface ButtonFormProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   disabled: boolean;
 }
 
-export function ButtonForm({ title, disabled }: ButtonFormProps) {
+export function ButtonForm({ title, disabled, ...props }: ButtonFormProps) {
   if (disabled) {
     return (
       <button
         className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-neutral-200 font-medium cursor-default bg-blue-200 pointer-events-none"
         disabled={true}
+        {...props}
       >
         Loading...
       </button>

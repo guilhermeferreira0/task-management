@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useFilter } from '../../contexts/FilterContext/useFilter';
 import { ProgressTaskProps } from '../../types/taskProps';
+import { notify } from '../Toasts/notify';
 
 export function MenuAside() {
   const { menuIsOpen, setMenuIsOpen } = useMenu();
@@ -64,8 +65,9 @@ export function MenuAside() {
       <button
         className="flex items-center gap-3 bg-orange-100 rounded-xl px-6 py-3"
         onClick={() => {
+          notify('success', 'Logout! Come Back again');
           logout();
-          navigate('/');
+          return new Promise(() => setTimeout(() => navigate('/'), 2000));
         }}
       >
         <CiLogout />
