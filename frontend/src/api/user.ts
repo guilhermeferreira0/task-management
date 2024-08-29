@@ -29,3 +29,21 @@ export async function userDetailsRequest() {
   });
   return response.data;
 }
+
+export async function userUpdateRequest(data: UserProps) {
+  const response = await Api.put('/user/update', data, {
+    headers: {
+      Authorization: getCookie(),
+    },
+  });
+  return response.data;
+}
+
+export async function userDeleteRequest() {
+  const response = await Api.delete('/user/delete', {
+    headers: {
+      Authorization: getCookie(),
+    },
+  });
+  return response.data;
+}

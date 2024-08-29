@@ -1,6 +1,11 @@
 import React, { createContext, ReactNode, useState } from 'react';
 import { UserProps } from '../../types/userProps';
-import { loginRequest, registerRequest } from '../../api/user';
+import {
+  loginRequest,
+  registerRequest,
+  userDeleteRequest,
+  userUpdateRequest,
+} from '../../api/user';
 import { AuthProps } from './type';
 import { setCookie } from '../../services/cookies';
 import { setUserLocalStorage } from './util';
@@ -38,6 +43,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function deleteUser() {
+    try {
+      await userDeleteRequest();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function updateUser(user: UserProps) {
+    try {
+      const res = await userUpdateRequest(user);
+      console.log(res);
+      setUserLogged({ username: user.username, email: user.email });
+      setUserLocalStorage({ username: user.username, email: user.email });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function logout() {
     setUserLogged(null);
     setCookie('');
@@ -52,6 +78,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         userLogged,
         logout,
         setUserLogged,
+        deleteUser,
+        updateUser,
       }}
     >
       {children}
