@@ -12,8 +12,13 @@ interface ListTaskProps {
 }
 
 export function ListTask({ title, classColor, tasks }: ListTaskProps) {
-  const { setModalIsOpen, setUpdateTaskModal } = useMenu();
+  const { setModalIsOpen, setUpdateTaskModal, setTaskDetailsModal } = useMenu();
   const { deleteTask } = useTask();
+
+  const handleClickTaskDetails = (task: TaskProps) => {
+    setTaskDetailsModal(task);
+    setModalIsOpen(true);
+  };
 
   return (
     <section className={`${classColor} w-full rounded-md p-3`}>
@@ -42,7 +47,13 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
               <strong>updated:</strong>
               <p>{task.updatedAt?.split(':')[0]}</p>
             </div>
-            <div className="absolute top-3 right-3 gap-4 flex">
+            <button
+              onClick={() => handleClickTaskDetails(task)}
+              className="bg-blue-400 rounded-lg w-2/4 m-auto py-2 px-3 text-white font-semibold leading-tight hover:bg-blue-600"
+            >
+              Details
+            </button>
+            <div className="absolute top-3 right-3 gap-4 flex z-50">
               <button
                 onClick={() => {
                   setUpdateTaskModal(task);

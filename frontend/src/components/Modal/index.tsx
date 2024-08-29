@@ -8,12 +8,14 @@ interface ModalProps {
 }
 
 export function Modal({ open, onClose, children }: ModalProps) {
-  const { setUpdateTaskModal } = useMenu();
+  const { setUpdateTaskModal, setTaskDetailsModal, taskDetailsModal } =
+    useMenu();
 
   return (
     // backdrop
     <div
       onClick={() => {
+        setTaskDetailsModal(null);
         setUpdateTaskModal(null);
         onClose();
       }}
@@ -28,9 +30,9 @@ export function Modal({ open, onClose, children }: ModalProps) {
           e.stopPropagation();
         }}
         className={`
-          bg-white rounded-xl shadow p-6 w-2/3 md:w-2/5 transition-all ${
-            open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'
-          }
+          bg-white rounded-xl shadow w-2/5 p-6 md:w-2/5 transition-all ${
+            open ? `scale-100 opacity-100` : 'scale-125 opacity-0'
+          } ${taskDetailsModal ? 'w-3/4 md:w-3/4' : 'w-2/3'}
         `}
       >
         <button

@@ -7,4 +7,6 @@ export interface MenuContextProps {
   setModalIsOpen: (vl: boolean) => void;
   updateTaskModal: TaskProps | null;
   setUpdateTaskModal: (vl: TaskProps | null) => void;
+  taskDetailsModal: TaskProps | null;
+  setTaskDetailsModal: (vl: TaskProps | null) => void;
 }

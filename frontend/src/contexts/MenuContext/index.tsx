@@ -14,6 +14,9 @@ export function MenuProvider({ children }: ContextProps) {
   const [updateTaskModal, setUpdateTaskModal] = useState<TaskProps | null>(
     null,
   );
+  const [taskDetailsModal, setTaskDetailsModal] = useState<TaskProps | null>(
+    null,
+  );
 
   return (
     <Context.Provider
@@ -24,6 +27,8 @@ export function MenuProvider({ children }: ContextProps) {
         setModalIsOpen,
         updateTaskModal,
         setUpdateTaskModal,
+        taskDetailsModal,
+        setTaskDetailsModal,
       }}
     >
       {children}

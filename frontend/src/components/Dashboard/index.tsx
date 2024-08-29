@@ -7,11 +7,18 @@ import { useFilter } from '../../contexts/FilterContext/useFilter';
 import { Modal } from '../Modal';
 import { FormUpdateTask } from '../Modal/FormUpdateTask';
 import { FormNewTask } from '../Modal/FormNewTask';
+import { TaskDetails } from './TaskDetail';
 
 export function DashboardPage() {
   const { search, categoryTask } = useFilter();
-  const { setModalIsOpen, modalIsOpen, setUpdateTaskModal, updateTaskModal } =
-    useMenu();
+  const {
+    setModalIsOpen,
+    modalIsOpen,
+    setUpdateTaskModal,
+    updateTaskModal,
+    taskDetailsModal,
+    setTaskDetailsModal,
+  } = useMenu();
   const { allTasks } = useTask();
   const deferedSearch = useDeferredValue(search);
   const tasksFilter = allTasks.filter((task) => {
@@ -26,7 +33,9 @@ export function DashboardPage() {
   const modalCallback = useCallback(() => {
     return (
       <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        {updateTaskModal ? <FormUpdateTask /> : <FormNewTask />}
+        {taskDetailsModal && <TaskDetails />}
+        {!taskDetailsModal &&
+          (updateTaskModal ? <FormUpdateTask /> : <FormNewTask />)}
       </Modal>
     );
   }, [modalIsOpen]);
@@ -38,8 +47,9 @@ export function DashboardPage() {
         <button
           className="bg-blue-600 text-white px-8 py-2 rounded-md text-sm"
           onClick={() => {
-            setModalIsOpen(true);
+            setTaskDetailsModal(null);
             setUpdateTaskModal(null);
+            setModalIsOpen(true);
           }}
         >
           New Task +
