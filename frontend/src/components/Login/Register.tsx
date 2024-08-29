@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { ButtonForm } from './Button';
 import { notify } from '../Toasts/notify';
 
@@ -113,7 +113,8 @@ export function RegisterPage({ setPage }: LoginPageProps) {
           Email existing
         </p>
       )}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-10">
+        <Link to="/">More Informations</Link>
         <button type="button" className="w-full" onClick={() => setPage(true)}>
           Already have an account? Sign in.
         </button>

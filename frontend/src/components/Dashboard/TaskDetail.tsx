@@ -11,7 +11,7 @@ export function TaskDetails() {
         <p className="">{taskDetailsModal?.title}</p>
       </div>
       <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
-        <p className="text-justify line-clamp-[20]">
+        <p className="text-justify">
           <strong>Description: </strong>
           {taskDetailsModal?.description}
         </p>

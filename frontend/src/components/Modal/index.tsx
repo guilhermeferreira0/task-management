@@ -30,9 +30,13 @@ export function Modal({ open, onClose, children }: ModalProps) {
           e.stopPropagation();
         }}
         className={`
-          bg-white rounded-xl shadow w-2/5 p-6 md:w-2/5 transition-all ${
+          bg-white rounded-xl shadow w-[70%] p-6 md:w-2/5 transition-all ${
             open ? `scale-100 opacity-100` : 'scale-125 opacity-0'
-          } ${taskDetailsModal ? 'w-3/4 md:w-3/4' : 'w-2/3'}
+          } ${
+            taskDetailsModal
+              ? 'w-[70%] h-[80%] overflow-y-scroll sm:w-3xl sm:h-max'
+              : 'w-2/4'
+          }
         `}
       >
         <button

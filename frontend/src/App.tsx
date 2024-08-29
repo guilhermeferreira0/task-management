@@ -5,13 +5,15 @@ import { FormPage } from './components/Login';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toast } from './components/Toasts';
 import 'react-toastify/dist/ReactToastify.css';
+import { HomePage } from './components/HomePage';
 
 function App(): JSX.Element {
   return (
     <>
       <Toast />
       <Routes>
-        <Route path="/" element={<FormPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<FormPage />} />
         <Route
           path="/dashboard"
           element={

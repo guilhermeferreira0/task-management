@@ -5,11 +5,13 @@ import { IFormTaskInput } from '../../types/taskProps';
 import { useTask } from '../../contexts/TaskContext/useTask';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { notify } from '../Toasts/notify';
+import { useNavigate } from 'react-router-dom';
 
 export function FormUpdateTask() {
   const { updateTask } = useTask();
   const [submitError, setSubmitError] = useState(false);
   const { updateTaskModal } = useMenu();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors, isSubmitting },
@@ -26,7 +28,7 @@ export function FormUpdateTask() {
     }
     notify('success', 'Task Updated');
     reset();
-    return new Promise(() => setTimeout(() => window.location.reload(), 2000));
+    return new Promise(() => setTimeout(() => navigate(0), 2000));
   };
 
   return (

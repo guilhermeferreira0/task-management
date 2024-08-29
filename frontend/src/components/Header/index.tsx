@@ -11,7 +11,7 @@ export function NavBar() {
   const { setSearch, search } = useFilter();
 
   return (
-    <header className="fixed flex items-center justify-between border-b bg-white h-24 px-8 gap-4 md:gap-8 top-0 right-0 w-[60%] lg:w-[calc(100%-256px)] max-md:w-full z-10">
+    <header className="fixed flex items-center justify-between border-b bg-white h-24 px-8 gap-4 md:gap-8 top-0 right-0 w-[60%] lg:w-[calc(100%-256px)] max-md:w-full z-30">
       <button
         onClick={() => setMenuIsOpen(true)}
         className="md:opacity-0 z-40 md:hidden"

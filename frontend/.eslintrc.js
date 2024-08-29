@@ -1,3 +1,5 @@
+const { rules } = require("eslint-config-prettier");
+
 /* eslint-disable prettier/prettier */
 module.exports = {
   env: {
@@ -12,6 +14,5 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-
   root: true,
 };
