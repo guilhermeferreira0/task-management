@@ -16,7 +16,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const verifyUser = useCallback(async () => {
     try {
       const res = await userDetailsRequest();
-      console.log(res);
       if (!res) {
         logout();
         navigate('/');

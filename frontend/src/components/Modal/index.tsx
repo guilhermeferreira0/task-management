@@ -28,7 +28,7 @@ export function Modal({ open, onClose, children }: ModalProps) {
           e.stopPropagation();
         }}
         className={`
-          bg-white rounded-xl shadow p-6 w-2/5 transition-all ${
+          bg-white rounded-xl shadow p-6 w-2/3 md:w-2/5 transition-all ${
             open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'
           }
         `}

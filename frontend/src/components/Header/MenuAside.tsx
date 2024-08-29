@@ -14,6 +14,10 @@ export function MenuAside() {
   const { setCategoryTask } = useFilter();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const handleButtonCategory = (category: ProgressTaskProps | null) => {
+    setCategoryTask(category);
+    setMenuIsOpen(false);
+  };
 
   return (
     <aside
@@ -33,28 +37,34 @@ export function MenuAside() {
         </h3>
         <ul className="list-inside list-none gap-5 flex flex-col text-blue-700 font-medium">
           <li>
-            <button onClick={() => setCategoryTask(null)}>Dashboard</button>
+            <button onClick={() => handleButtonCategory(null)}>
+              Dashboard
+            </button>
           </li>
           <li>
-            <button onClick={() => setCategoryTask(ProgressTaskProps.pending)}>
+            <button
+              onClick={() => handleButtonCategory(ProgressTaskProps.pending)}
+            >
               ToDo
             </button>
           </li>
           <li>
             <button
-              onClick={() => setCategoryTask(ProgressTaskProps.inProgress)}
+              onClick={() => handleButtonCategory(ProgressTaskProps.inProgress)}
             >
               In Progress
             </button>
           </li>
           <li>
-            <button onClick={() => setCategoryTask(ProgressTaskProps.delayed)}>
+            <button
+              onClick={() => handleButtonCategory(ProgressTaskProps.delayed)}
+            >
               Delayed
             </button>
           </li>
           <li>
             <button
-              onClick={() => setCategoryTask(ProgressTaskProps.completed)}
+              onClick={() => handleButtonCategory(ProgressTaskProps.completed)}
             >
               Completed
             </button>

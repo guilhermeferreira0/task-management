@@ -47,13 +47,13 @@ export function NavBar() {
       <p className="max-sm:hidden text-nowrap">
         {userLogged && userLogged.email}
       </p>
-      <div className="rounded-xl ">
+      <button className="rounded-xl relative">
         <img
           src={defaultProfile}
           alt="default profile"
           className="rounded-xl max-w-16"
         />
-      </div>
+      </button>
     </header>
   );
 }

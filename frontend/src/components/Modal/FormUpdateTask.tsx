@@ -12,11 +12,10 @@ export function FormUpdateTask() {
   const { updateTaskModal } = useMenu();
   const {
     register,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { errors, isSubmitting },
     handleSubmit,
     reset,
   } = useForm<IFormTaskInput>();
-  console.log(isLoading);
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     const res = await updateTask(data, updateTaskModal?.id as string);
