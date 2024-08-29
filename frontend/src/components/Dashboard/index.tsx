@@ -55,7 +55,7 @@ export function DashboardPage() {
           New Task +
         </button>
       </div>
-      <div className="grid xl:grid-cols-4 gap-3 mt-5">
+      <div className="flex flex-col xl:flex-row gap-3 mt-5">
         {!categoryTask && (
           <>
             <ListTask

@@ -5,7 +5,7 @@ export function TaskDetails() {
   const { taskDetailsModal } = useMenu();
 
   return (
-    <div>
+    <div className="flex flex-col gap-1 sm:gap-3">
       <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
         <strong>Title:</strong>
         <p className="">{taskDetailsModal?.title}</p>
