@@ -1,27 +1,35 @@
-import React, { useDeferredValue } from 'react';
+import React, { useCallback, useDeferredValue } from 'react';
 import { ListTask } from './ListTask';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
-import { Modal } from '../Modal';
-import { FormNewTask } from '../Modal/FormNewTask';
 import { useTask } from '../../contexts/TaskContext/useTask';
 import { ProgressTaskProps } from '../../types/taskProps';
-import { FormUpdateTask } from '../../components/Modal/FormUpdateTask';
 import { useFilter } from '../../contexts/FilterContext/useFilter';
+import { Modal } from '../Modal';
+import { FormUpdateTask } from '../Modal/FormUpdateTask';
+import { FormNewTask } from '../Modal/FormNewTask';
 
 export function DashboardPage() {
   const { search, categoryTask } = useFilter();
-  const { setModalIsOpen, modalIsOpen, updateTaskModal, setUpdateTaskModal } =
+  const { setModalIsOpen, modalIsOpen, setUpdateTaskModal, updateTaskModal } =
     useMenu();
   const { allTasks } = useTask();
   const deferedSearch = useDeferredValue(search);
   const tasksFilter = allTasks.filter((task) => {
-    const taskLower = task.description.toLowerCase();
+    const taskLower = task.title.toLowerCase();
     return taskLower.includes(deferedSearch.toLowerCase());
   });
 
   const getTasksByCategory = (category: ProgressTaskProps) => {
     return tasksFilter.filter((task) => task.progress === category);
   };
+
+  const modalCallback = useCallback(() => {
+    return (
+      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        {updateTaskModal ? <FormUpdateTask /> : <FormNewTask />}
+      </Modal>
+    );
+  }, [modalIsOpen]);
 
   return (
     <section className="px-8 mt-11">
@@ -99,10 +107,7 @@ export function DashboardPage() {
           </>
         )}
       </div>
-
-      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        {updateTaskModal ? <FormUpdateTask /> : <FormNewTask />}
-      </Modal>
+      {modalIsOpen && modalCallback()}
     </section>
   );
 }

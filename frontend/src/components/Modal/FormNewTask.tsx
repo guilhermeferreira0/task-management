@@ -7,7 +7,7 @@ import { useTask } from '../../contexts/TaskContext/useTask';
 export function FormNewTask() {
   const { registerTask } = useTask();
   const [submitError, setSubmitError] = useState(false);
-
+  console.log('FORM NEW');
   const {
     register,
     formState: { errors, isSubmitting },
