@@ -26,15 +26,21 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
           >
             <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
               <strong>Title:</strong>
-              <p>{task.title}</p>
+              <p className="line-clamp-1">{task.title}</p>
             </div>
             <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
-              <strong>Description:</strong>
-              <p className="line-clamp-3">{task.description}</p>
+              <p className="line-clamp-5 text-justify">
+                <strong>Description: </strong>
+                {task.description}
+              </p>
             </div>
             <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
               <strong>created:</strong>
               <p>{task.createdAt?.split(':')[0]}</p>
+            </div>
+            <div className="flex gap-2 xl:flex-col max-sm:flex-col xl:gap-0">
+              <strong>updated:</strong>
+              <p>{task.updatedAt?.split(':')[0]}</p>
             </div>
             <div className="absolute top-3 right-3 gap-4 flex">
               <button

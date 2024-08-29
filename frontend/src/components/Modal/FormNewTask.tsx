@@ -37,7 +37,7 @@ export function FormNewTask() {
           placeholder="Title"
           className="bg-[#292929] border-2 border-[#3e3e3e] rounded-lg text-white px-6 py-3 text-base hover:border-[#fff] cursor-pointer transition"
           type="text"
-          {...register('title', { required: true })}
+          {...register('title', { required: true, maxLength: 40 })}
         />
         <textarea
           placeholder="Description"
@@ -57,6 +57,11 @@ export function FormNewTask() {
         {errors.title?.type === 'required' && (
           <p role="alert" className="text-red-200">
             Title is required
+          </p>
+        )}
+        {errors.title?.type === 'maxLength' && (
+          <p role="alert" className="text-red-200">
+            Title is a maximum of 40 characters
           </p>
         )}
         {errors.description?.type === 'required' && (
