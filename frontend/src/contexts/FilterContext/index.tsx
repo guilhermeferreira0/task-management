@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useState,
-  useDeferredValue,
-} from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 import { FilterContextProps } from './type';
 import { ProgressTaskProps } from '../../types/taskProps';
 
@@ -18,12 +13,10 @@ export function FilterProvider({ children }: FilterProviderProps) {
   const [categoryTask, setCategoryTask] = useState<ProgressTaskProps | null>(
     null,
   );
-  const deferedSearch = useDeferredValue(search);
 
   return (
     <Context.Provider
       value={{
-        deferedSearch,
         search,
         setSearch,
         categoryTask,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useDeferredValue } from 'react';
 import { ListTask } from './ListTask';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { Modal } from '../Modal';
@@ -9,14 +9,14 @@ import { FormUpdateTask } from '../../components/Modal/FormUpdateTask';
 import { useFilter } from '../../contexts/FilterContext/useFilter';
 
 export function DashboardPage() {
-  const { deferedSearch } = useFilter();
+  const { search } = useFilter();
   const { setModalIsOpen, modalIsOpen, updateTaskModal, setUpdateTaskModal } =
     useMenu();
   const { allTasks } = useTask();
-
+  const deferedSearch = useDeferredValue(search);
   const tasksFilter = allTasks.filter((task) => {
-    console.log(task.description);
-    return task.description.toLowerCase().includes(deferedSearch.toLowerCase());
+    const taskLower = task.description.toLowerCase();
+    return taskLower.includes(deferedSearch.toLowerCase());
   });
 
   return (
