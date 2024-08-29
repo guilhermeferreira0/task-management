@@ -50,7 +50,7 @@ export class UserController {
     try {
       const hashedPassword = await AuthService.hashPassword(password);
       const newUser = await User.create({ username, email, password: hashedPassword });
-      const token = AuthService.generateToken(newUser.id, newUser.email);
+      const token = AuthService.generateToken(String(newUser.id), newUser.email);
       return res.status(201).json({ success: true, token });
     } catch (error) {
       return res
@@ -119,7 +119,7 @@ export class UserController {
       const isMatchPassword = await AuthService.comparePasswords(password, userExisting.password);
       if (!isMatchPassword) return res.status(401).json({success: false, message: 'Invalid credentials'});
 
-      const token = AuthService.generateToken(userExisting.id, userExisting.email);
+      const token = AuthService.generateToken(String(userExisting.id), userExisting.email);
       return res.status(202).json({success:true, token});
     } catch(error) {
       return res.status(401).json({success:false, message: 'Error Unauthorized'});

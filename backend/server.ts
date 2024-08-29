@@ -14,7 +14,7 @@ app.listen(port, () => {
 // verify conection and creating automatic tables
 (async () => {
   try {
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     console.log('Connection has been established successfully.');
   } catch (error) {
     // sequelize.close()
