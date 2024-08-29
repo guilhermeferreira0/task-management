@@ -26,9 +26,12 @@ export function FormUpdateTask() {
       notify('warning', 'Updated Error');
       return;
     }
-    notify('success', 'Task Updated');
+
     reset();
-    return new Promise(() => setTimeout(() => navigate(0), 2000));
+    return new Promise(() => {
+      notify('success', 'Task Updated');
+      setTimeout(() => navigate(0), 2000);
+    });
   };
 
   return (

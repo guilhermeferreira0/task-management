@@ -27,8 +27,10 @@ export function FormNewTask() {
     }
 
     reset();
-    notify('success', 'Task created!');
-    return new Promise(() => setTimeout(() => navigate(0), 2000));
+    return new Promise(() => {
+      notify('success', 'Task created!');
+      setTimeout(() => navigate(0), 2000);
+    });
   };
 
   return (
