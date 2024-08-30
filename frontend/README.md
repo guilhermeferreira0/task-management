@@ -1,46 +1,75 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FrontEnd Task Management
 
-## Available Scripts
+Este é o frontend do Task Management, desenvolvido para fornecer uma interface intuitiva e responsiva para gerenciamento de tarefas e usuários. O projeto é construído utilizando uma série de tecnologias modernas para garantir uma experiência de usuário fluida e uma base de código sustentável. Focado na experiência do usuário e na fluidez de renderização dos componentes
 
-In the project directory, you can run:
+## Funcionalidades
 
-### `npm start`
+- CRUD de Tarefas: Permite a criação, leitura, atualização e exclusão de tarefas. Cada tarefa pode ter informações como título, descrição, data e status.
+- Busca por Categoria: Facilita a filtragem de tarefas com base em categorias específicas, permitindo que os usuários visualizem rapidamente tarefas relacionadas a áreas de interesse ou projetos distintos.
+- CRUD de Usuários: Gerencia a criação, leitura, atualização e exclusão de usuários.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Rodando localmente
 
-### `npm test`
+Clone o projeto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+  git clone https://github.com/guilhermeferreira0/task-management.git
+```
 
-### `npm run build`
+Entre no diretório do frontend do projeto
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+  cd task-management
+  cd frontend
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Instale as dependências
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+  npm install
+```
 
-### `npm run eject`
+Inicie o servidor
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+  npm run start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Variáveis de Ambiente
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-## Learn More
+`REACT_APP_API_BASEURL`- Defina a url na qual o frontend irá mandar requisições HTTP, na qual o backend está vinculado ex: `http://localhost:3000/api`. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Tecnologias e Ferramentas Utilizadas
+
+Aqui está uma visão geral das principais tecnologias e ferramentas usadas neste projeto:
+
+- **React**: Biblioteca JavaScript para construir interfaces de usuário. Utilizada para criar componentes reutilizáveis e gerenciar o estado da aplicação de forma eficiente.
+
+- **TypeScript**: Adiciona tipagem estática ao JavaScript e incrementa o intelisense, garantindo assim a qualidade do código e facilitando a manutenção.
+
+- **ESLint**: Ferramenta de linting para identificar e corrigir problemas no código JavaScript/TypeScript. Utilizada para manter o código limpo e consistente conforme as regras definidas.
+
+- **Prettier**: Formatador de código que garante uma formatação consistente em todo o projeto. Utilizado para formatar automaticamente o código de acordo com um estilo predefinido, melhorando a legibilidade e a manutenção.
+
+- **Tailwind CSS**: Framework de utilitários CSS que facilita a criação de designs personalizados e responsivos. Utilizado para rapidez e agilidade.
+
+- **React Icons**: Biblioteca de ícones para React, oferecendo uma coleção de ícones populares e amplamente usados. Utilizada para incorporar ícones em componentes de forma fácil e consistente.
+
+- **Axios**: Biblioteca para fazer requisições HTTP. Utilizada para se comunicar com a API backend, facilitando a realização de operações como GET, POST, PUT e DELETE.
+
+## Rodando os testes
+
+Para rodar os testes, rode o seguinte comando
+
+```bash
+  npm run test
+```
+
