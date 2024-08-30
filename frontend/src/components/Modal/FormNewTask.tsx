@@ -9,27 +9,33 @@ import { useNavigate } from 'react-router-dom';
 export function FormNewTask() {
   const { registerTask } = useTask();
   const [submitError, setSubmitError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm<IFormTaskInput>();
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
+    setIsLoading(true);
     const res = await registerTask(data);
     if (!res) {
       setSubmitError(true);
       notify('warning', 'Error Task');
+      setIsLoading(false);
       return;
     }
 
-    reset();
     return new Promise(() => {
+      reset();
       notify('success', 'Task created!');
-      setTimeout(() => navigate(0), 2000);
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate(0);
+      }, 2000);
     });
   };
 
@@ -78,7 +84,7 @@ export function FormNewTask() {
             Task Invalid
           </p>
         )}
-        <ButtonForm title="Send" disabled={isSubmitting} />
+        <ButtonForm title="Send" isLoading={isLoading} />
       </div>
     </form>
   );

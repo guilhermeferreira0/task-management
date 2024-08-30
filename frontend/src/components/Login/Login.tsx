@@ -17,25 +17,33 @@ interface IFormInput {
 
 export function LoginPage({ setPage }: LoginPageProps) {
   const [submitError, setSubmitError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { authenticate } = useAuth();
   const {
     handleSubmit,
     register,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<IFormInput>({ mode: 'onChange' });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setIsLoading(true);
     const response = await authenticate(data);
     if (!response) {
       setSubmitError(true);
       notify('warning', 'Error login');
+      setIsLoading(false);
       return;
     }
-    reset();
-    notify('success', 'Login succesful');
-    return new Promise(() => setTimeout(() => navigate('/dashboard'), 2000));
+    return new Promise(() => {
+      reset();
+      notify('success', 'Login succesful');
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate('/dashboard');
+      }, 2000);
+    });
   };
 
   return (
@@ -98,7 +106,7 @@ export function LoginPage({ setPage }: LoginPageProps) {
         <button type="button" className="w-full" onClick={() => setPage(false)}>
           Dont´t have an account? Sign Up.
         </button>
-        <ButtonForm title="Send" disabled={isSubmitting} />
+        <ButtonForm title="Send" isLoading={isLoading} />
       </div>
       <Toast />
     </form>

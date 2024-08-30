@@ -54,8 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function updateUser(user: UserProps) {
     try {
-      const res = await userUpdateRequest(user);
-      console.log(res);
+      await userUpdateRequest(user);
       setUserLogged({ username: user.username, email: user.email });
       setUserLocalStorage({ username: user.username, email: user.email });
       return true;

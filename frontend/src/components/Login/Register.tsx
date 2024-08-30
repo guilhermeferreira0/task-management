@@ -17,23 +17,32 @@ interface IFormInput {
 
 export function RegisterPage({ setPage }: LoginPageProps) {
   const [submitError, setSubmitError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { registerUser } = useAuth();
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<IFormInput>({ mode: 'onChange' });
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setIsLoading(true);
     const response = await registerUser(data);
     if (!response) {
       setSubmitError(true);
       notify('warning', 'Register Error!!');
+      setIsLoading(false);
       return;
     }
 
-    notify('success', 'User Register!');
-    return new Promise(() => setTimeout(() => navigate('/dashboard'), 2000));
+    return new Promise(() => {
+      notify('success', 'User has been registered successfully!');
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate('/dashboard');
+      }, 2000);
+    });
   };
 
   return (
@@ -118,7 +127,7 @@ export function RegisterPage({ setPage }: LoginPageProps) {
         <button type="button" className="w-full" onClick={() => setPage(true)}>
           Already have an account? Sign in.
         </button>
-        <ButtonForm title="Register" disabled={isSubmitting} />
+        <ButtonForm title="Register" isLoading={isLoading} />
       </div>
     </form>
   );

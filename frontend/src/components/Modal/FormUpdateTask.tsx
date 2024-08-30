@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
 import { useTask } from '../../contexts/TaskContext/useTask';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
@@ -9,28 +8,34 @@ import { useNavigate } from 'react-router-dom';
 
 export function FormUpdateTask() {
   const { updateTask } = useTask();
+  const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const { updateTaskModal } = useMenu();
   const navigate = useNavigate();
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm<IFormTaskInput>();
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
+    setIsLoading(true);
     const res = await updateTask(data, updateTaskModal?.id as string);
     if (!res) {
       setSubmitError(true);
       notify('warning', 'Updated Error');
+      setIsLoading(false);
       return;
     }
 
-    reset();
     return new Promise(() => {
+      reset({ title: '', description: '' });
       notify('success', 'Task Updated');
-      setTimeout(() => navigate(0), 2000);
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate(0);
+      }, 2000);
     });
   };
 
@@ -76,7 +81,39 @@ export function FormUpdateTask() {
             Task Invalid
           </p>
         )}
-        <ButtonForm title="Updated" disabled={isSubmitting} />
+        <button
+          className="bg-blue-500 px-6 py-3 rounded-md text-white font-semibold hover:bg-blue-600"
+          disabled={isLoading}
+          type="submit"
+        >
+          {isLoading ? (
+            <div className="flex justify-center items-center">
+              <svg
+                className="mr-3 h-5 w-5 animate-spin text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span className="font-medium"> Processing... </span>
+            </div>
+          ) : (
+            'Updated'
+          )}
+        </button>
       </div>
     </form>
   );
