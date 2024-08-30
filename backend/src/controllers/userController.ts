@@ -95,6 +95,7 @@ export class UserController {
       userExisting.email = email;
       userExisting.password = hashedPassword;
       await userExisting.update({ id: id });
+      await userExisting.save();
       return res.status(200).json({ success: true, message: 'User updated' });
     } catch (error) {
       console.log(error);
