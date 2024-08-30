@@ -11,7 +11,9 @@ Estamos entusiasmados em apresentar o Gerenciador de Tarefas, um aplicativo full
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![mainPage](https://github.com/user-attachments/assets/8f106397-3f32-439d-8705-85ca84eb9cd1)
+![tasks](https://github.com/user-attachments/assets/76918d83-1436-442d-aacd-376fd3f09034)
+![mobile](https://github.com/user-attachments/assets/2fe7e481-673c-4017-86ca-dec96cdbce2b)
 
 
 ## Contribuindo
