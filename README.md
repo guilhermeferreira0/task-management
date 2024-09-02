@@ -1,7 +1,7 @@
 
 # Task Management
 ## Welcome !!!
-Estamos entusiasmados em apresentar o Gerenciador de Tarefas, um aplicativo fullstack desenvolvido para ajudá-lo a manter suas tarefas organizadas e gerenciáveis. Este projeto combina o poder do Node.js no backend com a flexibilidade do React no frontend para oferecer uma experiência de usuário fluida e intuitiva.
+Estou entusiasmado em apresentar o Gerenciador de Tarefas, um aplicativo fullstack desenvolvido para ajudá-lo a manter suas tarefas organizadas e gerenciáveis. Este projeto combina o poder do Node.js no backend com a flexibilidade do React no frontend para oferecer uma experiência de usuário fluida e intuitiva.
 ## Funcionalidades
 
 - CRUD de Tarefas: Permite a criação, leitura, atualização e exclusão de tarefas. Cada tarefa pode ter informações como título, descrição, data e status.
