@@ -1,6 +1,3 @@
-const { rules } = require("eslint-config-prettier");
-
-/* eslint-disable prettier/prettier */
 module.exports = {
   env: {
     browser: true,

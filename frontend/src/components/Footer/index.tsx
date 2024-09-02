@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { TbBrandGithub } from 'react-icons/tb';
 import { MdWeb } from 'react-icons/md';
 
@@ -30,22 +31,22 @@ export function FooterPage() {
             Follow us on social media to stay updated:
           </p>
           <div className="flex flex-col sm:flex-row gap-5 sm:gap-10">
-            <a
-              href="https://github.com/guilhermeferreira0/task-management"
+            <Link
+              to="https://github.com/guilhermeferreira0/task-management"
               className="flex justify-center items-center gap-2 text-xs sm:text-base"
               target="_blank"
               rel="noreferrer"
             >
               <TbBrandGithub /> Github
-            </a>
-            <a
-              href="https://gf-portfolio-eight.vercel.app/"
+            </Link>
+            <Link
+              to="https://gf-portfolio-eight.vercel.app/"
               className="flex justify-center items-center gap-2 text-xs sm:text-base"
               target="_blank"
               rel="noreferrer"
             >
               <MdWeb /> Portfolio
-            </a>
+            </Link>
           </div>
         </li>
         <li>

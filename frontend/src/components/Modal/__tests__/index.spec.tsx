@@ -20,6 +20,9 @@ describe('Modal', () => {
     const button = screen.getByRole('button', { name: /x/i });
     fireEvent.click(button);
     expect(setState).toHaveBeenCalled();
+
+    const form = await screen.findByText(/New Task/i);
+    expect(form).toBeInTheDocument();
   });
 
   it('Should render and click button close Modal Update Task correctly', async () => {
@@ -35,5 +38,8 @@ describe('Modal', () => {
     const button = screen.getByRole('button', { name: /x/i });
     fireEvent.click(button);
     expect(setState).toHaveBeenCalled();
+
+    const form = await screen.findByText(/Updated/i);
+    expect(form).toBeInTheDocument();
   });
 });
