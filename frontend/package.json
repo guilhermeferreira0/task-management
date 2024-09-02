@@ -1,7 +1,7 @@
 {
   "name": "task-management",
   "version": "0.1.0",
-  "type": "module",
+  "type": "commonjs",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -39,7 +39,8 @@
     "tailwindcss": "^3.4.10"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:dev": "react-scripts start",
+    "start": "serve -s build -l 3000",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" --silent --noStackTrace",
     "eject": "react-scripts eject"

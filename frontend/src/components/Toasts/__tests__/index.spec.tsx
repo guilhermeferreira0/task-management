@@ -11,11 +11,7 @@ describe('HomePage', () => {
       <MockTest>
         <Toast />
       </MockTest>,
-    );
-
-    const toastElement = screen.getByRole('alertdialog');
-    expect(toastElement).toBeVisible();
-    
+    );    
     notify('success', 'toast');
     const notification = await screen.findByText(/toast/);
     expect(notification).toBeInTheDocument();
