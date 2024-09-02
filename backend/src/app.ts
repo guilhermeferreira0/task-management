@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-
 class App {
   private readonly express = express();
 
