@@ -45,13 +45,13 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 `JWT_SECRET`- Esta variável armazena a chave secreta usada para assinar e verificar tokens JWT (JSON Web Tokens).
 
-`MYSQL_DATABASE`- Define o nome do banco de dados MySQL que o backend utilizará para armazenar e gerenciar dados.
+`MYSQL_DATABASE`- Define o nome do banco de dados MySQL que o backend utilizará para armazenar e gerenciar dados, lembre-se de criar um database com o mesmo nome da variável.
 
 `MYSQL_USERNAME`- Especifica o nome de usuário utilizado para conectar-se ao banco de dados MySQL.
 
 `MYSQL_PASSWORD`- Armazena a senha correspondente ao nome de usuário definido em MYSQL_USERNAME.
 
-`MYSQL_HOST` - Define o endereço do servidor MySQL onde o banco de dados está hospedado. Pode ser um endereço IP, um nome de domínio ou localhost se o banco de dados estiver no mesmo servidor que o backend.
+`MYSQL_HOST` - Define o endereço do servidor MySQL onde o banco de dados está hospedado. Pode ser um endereço IP, um nome de domínio ou `localhost` se o banco de dados estiver no mesmo servidor que o backend.
 
 
 ## Documentação das rotas de USUÁRIO
