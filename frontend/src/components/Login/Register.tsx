@@ -37,8 +37,8 @@ export function RegisterPage({ setPage }: LoginPageProps) {
     }
 
     return new Promise(() => {
-      notify('success', 'User has been registered successfully!');
       setTimeout(() => {
+        notify('success', 'User has been registered successfully!');
         setIsLoading(false);
         navigate('/dashboard');
       }, 2000);

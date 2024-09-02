@@ -31,10 +31,17 @@ Instale as dependências
   npm install
 ```
 
-Inicie o servidor
+Inicie o servidor de PRODUÇÂO
 
 ```bash
   npm run start
+```
+Ou
+
+Inicie o servidor de DESENVOLVIMENTO
+
+```bash
+  npm run start:dev
 ```
 
 
