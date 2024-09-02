@@ -65,6 +65,10 @@ Aqui está uma visão geral das principais tecnologias e ferramentas usadas nest
 
 - **Axios**: Biblioteca para fazer requisições HTTP. Utilizada para se comunicar com a API backend, facilitando a realização de operações como GET, POST, PUT e DELETE.
 
+- **React Hook Form**: Biblioteca para gerenciamento de formulários em aplicações React. Foca em minimizar a re-renderização e melhorar o desempenho ao lidar com formulários complexos.
+
+- **React Toastify**: Usado para exibir notificações toast (pequenas mensagens emergentes) em aplicações React. É altamente configurável e permite uma fácil personalização das mensagens de alerta e feedback para o usuário.
+
 ## Rodando os testes
 
 Para rodar os testes, rode o seguinte comando
