@@ -11,7 +11,7 @@ import { notify } from '../Toasts/notify';
 
 export function MenuAside() {
   const { menuIsOpen, setMenuIsOpen } = useMenu();
-  const { setCategoryTask } = useFilter();
+  const { setCategoryTask, categoryTask } = useFilter();
   const { logout } = useAuth();
   const navigate = useNavigate();
   const handleButtonCategory = (category: ProgressTaskProps | null) => {
@@ -43,6 +43,11 @@ export function MenuAside() {
           </li>
           <li>
             <button
+              className={`${
+                categoryTask === ProgressTaskProps.pending
+                  ? 'bg-blue-200 p-3 transition-all rounded-md'
+                  : ''
+              }`}
               onClick={() => handleButtonCategory(ProgressTaskProps.pending)}
             >
               ToDo
@@ -50,6 +55,11 @@ export function MenuAside() {
           </li>
           <li>
             <button
+              className={`${
+                categoryTask === ProgressTaskProps.inProgress
+                  ? 'bg-blue-200 p-3 transition-all rounded-md'
+                  : ''
+              }`}
               onClick={() => handleButtonCategory(ProgressTaskProps.inProgress)}
             >
               In Progress
@@ -57,6 +67,11 @@ export function MenuAside() {
           </li>
           <li>
             <button
+              className={`${
+                categoryTask === ProgressTaskProps.delayed
+                  ? 'bg-blue-200 p-3 transition-all rounded-md'
+                  : ''
+              }`}
               onClick={() => handleButtonCategory(ProgressTaskProps.delayed)}
             >
               Delayed
@@ -64,6 +79,11 @@ export function MenuAside() {
           </li>
           <li>
             <button
+              className={`${
+                categoryTask === ProgressTaskProps.completed
+                  ? 'bg-blue-200 p-3 transition-all rounded-md'
+                  : ''
+              }`}
               onClick={() => handleButtonCategory(ProgressTaskProps.completed)}
             >
               Completed
@@ -73,7 +93,7 @@ export function MenuAside() {
       </div>
 
       <button
-        className="flex items-center gap-3 bg-orange-100 rounded-xl px-6 py-3"
+        className="flex items-center gap-3 bg-orange-100 rounded-xl px-6 py-3 hover:bg-orange-200 transition-all"
         onClick={() => {
           notify('success', 'Logout! Come Back again');
           logout();
