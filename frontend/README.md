@@ -34,6 +34,7 @@ Instale as dependências
 Inicie o servidor de PRODUÇÂO
 
 ```bash
+  npm run build
   npm run start
 ```
 Ou
