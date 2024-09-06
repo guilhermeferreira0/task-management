@@ -121,7 +121,13 @@ export class UserController {
       if (!isMatchPassword) return res.status(401).json({success: false, message: 'Invalid credentials'});
 
       const token = AuthService.generateToken(String(userExisting.id), userExisting.email);
-      return res.status(202).json({success:true, token});
+      return res.status(202).json({
+        success:true, 
+        token, 
+        data: {
+          username: userExisting.username,
+          email: userExisting.email,
+        }});
     } catch(error) {
       return res.status(401).json({success:false, message: 'Error Unauthorized'});
     }
