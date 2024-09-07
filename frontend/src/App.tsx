@@ -6,6 +6,7 @@ import { Toast } from './components/Toasts';
 import 'react-toastify/dist/ReactToastify.css';
 import { HomePage } from './components/HomePage';
 import { useAuth } from './contexts/AuthContext/useAuth';
+import { NotFound } from './components/NotFound';
 
 function App(): JSX.Element {
   const { userLogged } = useAuth();
@@ -25,6 +26,7 @@ function App(): JSX.Element {
           path="/dashboard"
           element={userLogged ? <MainPage /> : <Navigate to="/login" />}
         />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Toast />
     </>
