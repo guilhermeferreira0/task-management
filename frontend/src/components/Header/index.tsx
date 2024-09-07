@@ -16,7 +16,7 @@ export function NavBar() {
   const modalCallbackUser = useCallback(() => {
     return (
       <ModalUpdateUser open={modalUser} onClose={() => setModalUser(false)}>
-        {modalUser && <FormUpdatedUser />}
+        {modalUser && <FormUpdatedUser onClose={() => setModalUser(false)} />}
       </ModalUpdateUser>
     );
   }, [modalUser]);
