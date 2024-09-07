@@ -1,12 +1,9 @@
 import { UserProps } from '../../types/userProps';
 
 export interface AuthProps {
-  authenticate: (user: UserProps) => Promise<boolean>;
-  registerUser: (user: UserProps) => Promise<boolean>;
   logout: () => void;
   setUserLogged: (user: UserProps) => void;
-  deleteUser: () => Promise<boolean>;
-  updateUser: (user: UserProps) => Promise<boolean>;
+  setUserContext: (user: UserProps, token?: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   userLogged: any;
 }

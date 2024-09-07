@@ -8,6 +8,7 @@ import {
   updateTaskRequest,
 } from '../../api/task';
 import { TaskContextProps } from './types';
+import { useAuth } from '../AuthContext/useAuth';
 
 interface TaskProviderProps {
   children: ReactNode;
@@ -17,49 +18,23 @@ export const Context = createContext({} as TaskContextProps);
 
 export function TaskProvider({ children }: TaskProviderProps) {
   const [allTasks, setAllTasks] = useState([] as TaskProps[]);
-
-  async function registerTask(data: IFormTaskInput) {
-    try {
-      await registerTaskRequest(data);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  async function updateTask(data: IFormTaskInput, id: string) {
-    try {
-      await updateTaskRequest(data, id);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  async function deleteTask(id: string) {
-    try {
-      await deleteTaskRequest(id);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+  const { userLogged } = useAuth();
 
   useEffect(() => {
     const fetchTask = async () => {
       const { data } = await getAllTasks();
       setAllTasks(data);
     };
-    fetchTask();
+
+    if (userLogged) fetchTask();
+
+    return;
   }, []);
 
   return (
     <Context.Provider
       value={{
         allTasks,
-        registerTask,
-        updateTask,
-        deleteTask,
       }}
     >
       {children}
