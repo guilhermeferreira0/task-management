@@ -20,7 +20,7 @@ export function useHookUser() {
       const response = await loginRequest(user);
       if (!response) throw new Error('Server Error');
       setUserContext(response.data, response.token);
-      toast.success('Login Successful');
+      toast.success('Login Successful, Welcome!!!');
     } catch (e: any) {
       toast.error(e.response.data.message);
     } finally {
@@ -46,7 +46,7 @@ export function useHookUser() {
     setLoading(true);
     try {
       await userDeleteRequest();
-      toast.success('User Deleted');
+      toast.warning('User Deleted');
     } catch (e: any) {
       toast.error(e.response.data.message);
     } finally {

@@ -1,12 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
-import { TaskProps, IFormTaskInput } from '../../types/taskProps';
-import {
-  deleteTaskRequest,
-  getAllTasks,
-  registerTaskRequest,
-  updateTaskRequest,
-} from '../../api/task';
+import { TaskProps } from '../../types/taskProps';
+import { getAllTasks } from '../../api/task';
 import { TaskContextProps } from './types';
 import { useAuth } from '../AuthContext/useAuth';
 
@@ -33,12 +27,13 @@ export function TaskProvider({ children }: TaskProviderProps) {
     if (userLogged) fetchTask();
 
     return;
-  }, []);
+  }, [setAllTasks]);
 
   return (
     <Context.Provider
       value={{
         allTasks,
+        setAllTasks,
       }}
     >
       {children}
