@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainPage } from './components/MainPage';
 import { FormPage } from './components/Login';
 import { Toaster } from 'sonner';
-import 'react-toastify/dist/ReactToastify.css';
 import { HomePage } from './components/HomePage';
 import { useAuth } from './contexts/AuthContext/useAuth';
 import { NotFound } from './components/NotFound';
