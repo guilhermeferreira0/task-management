@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { MdOutlineDelete } from 'react-icons/md';
 import { RxUpdate } from 'react-icons/rx';
 import { useHookUser } from '../../hooks/useHookUser';
-import { useMenu } from '../../contexts/MenuContext/useMenu';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
   username: string;
@@ -14,8 +14,8 @@ interface IFormInput {
 
 export function FormUpdatedUser() {
   const { userLogged } = useAuth();
-  const { setModalIsOpen, setUpdateTaskModal } = useMenu();
   const { updateUser, deleteUser, loading } = useHookUser();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -23,8 +23,7 @@ export function FormUpdatedUser() {
   } = useForm<IFormInput>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await updateUser(data);
-    setModalIsOpen(false);
-    setUpdateTaskModal(null);
+    navigate(0);
   };
 
   const handleDeleteUser = async () => {
