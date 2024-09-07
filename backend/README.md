@@ -8,7 +8,6 @@ API robusta desenvolvida para gerenciar tarefas e usuários de forma eficiente. 
 - Busca por Categoria: Facilita a filtragem de tarefas com base em categorias específicas, permitindo que os usuários visualizem rapidamente tarefas relacionadas a áreas de interesse ou projetos distintos.
 - CRUD de Usuários: Gerencia a criação, leitura, atualização e exclusão de usuários.
 
-
 ## Rodando localmente
 
 Clone o projeto
@@ -35,7 +34,15 @@ Inicie o servidor
 ```bash
   npm run start:dev
 ```
+## Configuração do Banco de Dados
 
+1. **Criação do Banco de Dados:**
+
+  - Acesse o MySQL usando um cliente de sua preferência ou a linha de comando.
+  - Crie um novo banco de dados com o comando:
+    ```sql
+    CREATE DATABASE nome_do_banco_de_dados;
+    ```
 
 ## Variáveis de Ambiente
 
@@ -52,7 +59,6 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 `MYSQL_PASSWORD`- Armazena a senha correspondente ao nome de usuário definido em MYSQL_USERNAME.
 
 `MYSQL_HOST` - Define o endereço do servidor MySQL onde o banco de dados está hospedado. Pode ser um endereço IP, um nome de domínio ou `localhost` se o banco de dados estiver no mesmo servidor que o backend.
-
 
 ## Documentação das rotas de USUÁRIO
 
@@ -200,6 +206,7 @@ Validade do Token: O token JWT tem uma validade específica após a qual você p
 
 #### Erro de Autenticação 
 Se o token JWT estiver ausente, inválido ou expirado, você receberá um código de status HTTP 401 (Unauthorized).
+
 ## Tecnologias e Ferramentas Utilizadas
 
 Aqui está uma visão geral das principais tecnologias e ferramentas usadas neste projeto:

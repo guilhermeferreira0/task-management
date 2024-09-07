@@ -28,9 +28,20 @@ Pode mandar ver e fazer seu _Pull Request_ (PR, para os íntimos).
   - Titulo: seja sucinto e coerente, nada de titulos que mais parecem uma URL.
   - Descrição: fez algo daora? Que tal dizer por onde começou e porquê?  
 
+## Pré-Requisitos
 
+Antes de começar, verifique se você tem os seguintes softwares instalados:
+
+- MySQL
+- Node.js (para o frontend e backend)
+- npm ou yarn (gerenciador de pacotes)
+
+## Rodando 
+
+Para rodar o projeto entre na pasta `frontend` e `backend` siga as instruções do readme para iniciar, e rode as 2 pastas ao mesmo tempo.
 
 ## Suporte
 
 Para suporte, mande um email para guilherme.fsilva23@gmail.com ou entre em contato pelo github.
 
+Obrigado pela visita!!!
