@@ -1,7 +1,6 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from './Button';
-import { Toast } from '../Toasts';
 import { useHookUser } from '../../hooks/useHookUser';
 
 interface LoginPageProps {
@@ -84,7 +83,6 @@ export function LoginPage({ setPage }: LoginPageProps) {
         </button>
         <ButtonForm title="Send" isLoading={loading} />
       </div>
-      <Toast />
     </form>
   );
 }
