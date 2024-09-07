@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainPage } from './components/MainPage';
 import { FormPage } from './components/Login';
-import { Toast } from './components/Toasts';
+import { Toaster } from 'sonner';
 import 'react-toastify/dist/ReactToastify.css';
 import { HomePage } from './components/HomePage';
 import { useAuth } from './contexts/AuthContext/useAuth';
@@ -28,7 +28,7 @@ function App(): JSX.Element {
         />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      <Toast />
+      <Toaster richColors />
     </>
   );
 }

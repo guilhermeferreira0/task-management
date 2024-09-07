@@ -67,7 +67,7 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
               <button
                 onClick={async () => {
                   deleteTask(task.id as string);
-                  navigate(0);
+                  return new Promise(() => setTimeout(() => navigate(0), 420));
                 }}
               >
                 <MdOutlineDelete size={22} color="red" />

@@ -18,7 +18,7 @@ export function FormUpdateTask() {
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     await updateTask(data, updateTaskModal?.id as string);
-    navigate(0);
+    return new Promise(() => setTimeout(() => navigate(0), 500));
   };
 
   return (

@@ -19,7 +19,7 @@ export function FormNewTask() {
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     await registerTask(data);
     reset();
-    navigate(0);
+    return new Promise(() => setTimeout(() => navigate(0), 500));
   };
 
   return (

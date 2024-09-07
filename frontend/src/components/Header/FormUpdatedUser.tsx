@@ -13,7 +13,7 @@ interface IFormInput {
 }
 
 export function FormUpdatedUser() {
-  const { userLogged } = useAuth();
+  const { userLogged, logout } = useAuth();
   const { updateUser, deleteUser, loading } = useHookUser();
   const navigate = useNavigate();
   const {
@@ -23,13 +23,14 @@ export function FormUpdatedUser() {
   } = useForm<IFormInput>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await updateUser(data);
-    navigate(0);
+    return new Promise(() => setTimeout(() => navigate(0), 500));
   };
 
   const handleDeleteUser = async () => {
     const message = window.confirm('Are you sure about that?');
     if (!message) return;
     await deleteUser();
+    return new Promise(() => setTimeout(() => logout(), 500));
   };
 
   return (
