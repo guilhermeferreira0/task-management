@@ -38,7 +38,7 @@ Antes de começar, verifique se você tem os seguintes softwares instalados:
 
 ## Rodando 
 
-Para rodar o projeto entre na pasta `frontend` e `backend` siga as instruções do readme para iniciar, e rode as 2 pastas ao mesmo tempo.
+Para rodar o projeto entre na pasta `frontend` e `backend` siga as instruções do readme para iniciar, e rode as 2 pastas simultaneamente.
 
 ## Suporte
 
