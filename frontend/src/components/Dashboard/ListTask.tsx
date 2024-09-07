@@ -3,7 +3,6 @@ import { TaskProps } from '../../types/taskProps';
 import { MdOutlineModeEdit, MdOutlineDelete } from 'react-icons/md';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useHookTask } from '../../hooks/useHookTask';
-import { useNavigate } from 'react-router-dom';
 
 interface ListTaskProps {
   title: string;
@@ -14,7 +13,6 @@ interface ListTaskProps {
 export function ListTask({ title, classColor, tasks }: ListTaskProps) {
   const { setModalIsOpen, setUpdateTaskModal, setTaskDetailsModal } = useMenu();
   const { deleteTask } = useHookTask();
-  const navigate = useNavigate();
 
   const handleClickTaskDetails = (task: TaskProps) => {
     setTaskDetailsModal(task);
@@ -67,7 +65,6 @@ export function ListTask({ title, classColor, tasks }: ListTaskProps) {
               <button
                 onClick={async () => {
                   deleteTask(task.id as string);
-                  return new Promise(() => setTimeout(() => navigate(0), 420));
                 }}
               >
                 <MdOutlineDelete size={22} color="red" />

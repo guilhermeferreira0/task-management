@@ -4,12 +4,10 @@ import { IFormTaskInput } from '../../types/taskProps';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useHookTask } from '../../hooks/useHookTask';
 import { ButtonForm } from '../Login/Button';
-import { useNavigate } from 'react-router-dom';
 
 export function FormUpdateTask() {
   const { updateTask, loading } = useHookTask();
-  const { updateTaskModal } = useMenu();
-  const navigate = useNavigate();
+  const { updateTaskModal, setModalIsOpen, setUpdateTaskModal } = useMenu();
   const {
     register,
     formState: { errors },
@@ -18,7 +16,8 @@ export function FormUpdateTask() {
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     await updateTask(data, updateTaskModal?.id as string);
-    return new Promise(() => setTimeout(() => navigate(0), 500));
+    setUpdateTaskModal(null);
+    setModalIsOpen(false);
   };
 
   return (

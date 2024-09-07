@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { MdOutlineDelete } from 'react-icons/md';
 import { RxUpdate } from 'react-icons/rx';
 import { useHookUser } from '../../hooks/useHookUser';
-import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
   username: string;
@@ -12,10 +11,13 @@ interface IFormInput {
   password: string;
 }
 
-export function FormUpdatedUser() {
+interface FormUpdatedUserProps {
+  onClose: () => void;
+}
+
+export function FormUpdatedUser({ onClose }: FormUpdatedUserProps) {
   const { userLogged, logout } = useAuth();
   const { updateUser, deleteUser, loading } = useHookUser();
-  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -23,7 +25,7 @@ export function FormUpdatedUser() {
   } = useForm<IFormInput>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await updateUser(data);
-    return new Promise(() => setTimeout(() => navigate(0), 500));
+    onClose();
   };
 
   const handleDeleteUser = async () => {

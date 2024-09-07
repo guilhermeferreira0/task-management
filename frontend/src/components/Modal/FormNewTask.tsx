@@ -3,11 +3,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
 import { useHookTask } from '../../hooks/useHookTask';
-import { useNavigate } from 'react-router-dom';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 
 export function FormNewTask() {
   const { registerTask, loading } = useHookTask();
-  const navigate = useNavigate();
+  const { setModalIsOpen } = useMenu();
 
   const {
     register,
@@ -19,7 +19,7 @@ export function FormNewTask() {
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
     await registerTask(data);
     reset();
-    return new Promise(() => setTimeout(() => navigate(0), 500));
+    setModalIsOpen(false);
   };
 
   return (
