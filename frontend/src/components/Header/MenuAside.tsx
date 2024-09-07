@@ -4,7 +4,6 @@ import { IoMdClose } from 'react-icons/io';
 import { CiLogout } from 'react-icons/ci';
 import { useMenu } from '../../contexts/MenuContext/useMenu';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
-import { useNavigate } from 'react-router-dom';
 import { useFilter } from '../../contexts/FilterContext/useFilter';
 import { ProgressTaskProps } from '../../types/taskProps';
 import { notify } from '../Toasts/notify';
@@ -13,7 +12,6 @@ export function MenuAside() {
   const { menuIsOpen, setMenuIsOpen } = useMenu();
   const { setCategoryTask, categoryTask } = useFilter();
   const { logout } = useAuth();
-  const navigate = useNavigate();
   const handleButtonCategory = (category: ProgressTaskProps | null) => {
     setCategoryTask(category);
     setMenuIsOpen(false);
@@ -97,7 +95,6 @@ export function MenuAside() {
         onClick={() => {
           notify('success', 'Logout! Come Back again');
           logout();
-          return new Promise(() => setTimeout(() => navigate('/'), 2000));
         }}
       >
         <CiLogout />
