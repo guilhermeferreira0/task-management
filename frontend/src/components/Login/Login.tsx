@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAuth } from '../../contexts/AuthContext/useAuth';
-import { useNavigate } from 'react-router-dom';
 import { ButtonForm } from './Button';
-import { notify } from '../Toasts/notify';
 import { Toast } from '../Toasts';
+import { useHookUser } from '../../hooks/useHookUser';
 
 interface LoginPageProps {
   setPage: (vl: boolean) => void;
@@ -16,10 +14,7 @@ interface IFormInput {
 }
 
 export function LoginPage({ setPage }: LoginPageProps) {
-  const [submitError, setSubmitError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const { authenticate } = useAuth();
+  const { loginUser, loading } = useHookUser();
   const {
     handleSubmit,
     register,
@@ -28,22 +23,8 @@ export function LoginPage({ setPage }: LoginPageProps) {
   } = useForm<IFormInput>({ mode: 'onChange' });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setIsLoading(true);
-    const response = await authenticate(data);
-    if (!response) {
-      setSubmitError(true);
-      notify('warning', 'Error login');
-      setIsLoading(false);
-      return;
-    }
-    return new Promise(() => {
-      reset();
-      notify('success', 'Login succesful');
-      setTimeout(() => {
-        setIsLoading(false);
-        navigate('/dashboard');
-      }, 2000);
-    });
+    await loginUser(data);
+    reset();
   };
 
   return (
@@ -97,16 +78,11 @@ export function LoginPage({ setPage }: LoginPageProps) {
           Password must be 8 characters
         </p>
       )}
-      {submitError && (
-        <p role="alert" className="text-red-200">
-          Password or Email invalid
-        </p>
-      )}
       <div className="flex flex-col gap-5">
         <button type="button" className="w-full" onClick={() => setPage(false)}>
           Dont´t have an account? Sign Up.
         </button>
-        <ButtonForm title="Send" isLoading={isLoading} />
+        <ButtonForm title="Send" isLoading={loading} />
       </div>
       <Toast />
     </form>

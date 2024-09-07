@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ButtonForm } from '../Login/Button';
 import { IFormTaskInput } from '../../types/taskProps';
-import { useTask } from '../../contexts/TaskContext/useTask';
-import { notify } from '../Toasts/notify';
+import { useHookTask } from '../../hooks/useHookTask';
 import { useNavigate } from 'react-router-dom';
 
 export function FormNewTask() {
-  const { registerTask } = useTask();
-  const [submitError, setSubmitError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { registerTask, loading } = useHookTask();
   const navigate = useNavigate();
 
   const {
@@ -20,23 +17,9 @@ export function FormNewTask() {
   } = useForm<IFormTaskInput>();
 
   const onSubmit: SubmitHandler<IFormTaskInput> = async (data) => {
-    setIsLoading(true);
-    const res = await registerTask(data);
-    if (!res) {
-      setSubmitError(true);
-      notify('warning', 'Error Task');
-      setIsLoading(false);
-      return;
-    }
-
-    return new Promise(() => {
-      reset();
-      notify('success', 'Task created!');
-      setTimeout(() => {
-        setIsLoading(false);
-        navigate(0);
-      }, 2000);
-    });
+    await registerTask(data);
+    reset();
+    navigate(0);
   };
 
   return (
@@ -79,12 +62,7 @@ export function FormNewTask() {
             Description is required
           </p>
         )}
-        {submitError && (
-          <p role="alert" className="text-red-200">
-            Task Invalid
-          </p>
-        )}
-        <ButtonForm title="Send" isLoading={isLoading} />
+        <ButtonForm title="Send" isLoading={loading} />
       </div>
     </form>
   );

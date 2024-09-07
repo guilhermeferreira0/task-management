@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { notify } from '../Toasts/notify';
 import { MdOutlineDelete } from 'react-icons/md';
 import { RxUpdate } from 'react-icons/rx';
+import { useHookUser } from '../../hooks/useHookUser';
+import { useMenu } from '../../contexts/MenuContext/useMenu';
 
 interface IFormInput {
   username: string;
@@ -13,41 +13,24 @@ interface IFormInput {
 }
 
 export function FormUpdatedUser() {
-  const [submitError, setSubmitError] = useState(false);
-  const navigate = useNavigate();
-  const { updateUser, userLogged, deleteUser } = useAuth();
+  const { userLogged } = useAuth();
+  const { setModalIsOpen, setUpdateTaskModal } = useMenu();
+  const { updateUser, deleteUser, loading } = useHookUser();
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<IFormInput>({ mode: 'onChange' });
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const response = await updateUser(data);
-    if (!response) {
-      setSubmitError(true);
-      notify('warning', 'Updated Error!!');
-      return;
-    }
-
-    return new Promise(() => {
-      notify('success', 'User Updated!');
-      setTimeout(() => navigate(0), 2000);
-    });
+    await updateUser(data);
+    setModalIsOpen(false);
+    setUpdateTaskModal(null);
   };
 
   const handleDeleteUser = async () => {
     const message = window.confirm('Are you sure about that?');
     if (!message) return;
-    const response = await deleteUser();
-    if (!response) {
-      setSubmitError(true);
-      notify('warning', 'Delete Error!!');
-      return;
-    }
-    return new Promise(() => {
-      notify('success', 'User deleted');
-      setTimeout(() => navigate('/'), 2000);
-    });
+    await deleteUser();
   };
 
   return (
@@ -126,16 +109,11 @@ export function FormUpdatedUser() {
           Password must be 8 characters
         </p>
       )}
-      {submitError && (
-        <p role="alert" className="text-red-200">
-          Email existing
-        </p>
-      )}
       <div className="flex gap-10 justify-center">
         <button
           type="submit"
           className="flex text-blue-300 justify-center items-center gap-3 hover:text-blue-600 transition-all"
-          disabled={isSubmitting}
+          disabled={loading}
         >
           <RxUpdate /> Updated
         </button>
@@ -143,7 +121,7 @@ export function FormUpdatedUser() {
           type="button"
           className="flex text-red-300 justify-center items-center gap-3 hover:text-red-600 transition-all"
           onClick={handleDeleteUser}
-          disabled={isSubmitting}
+          disabled={loading}
         >
           <MdOutlineDelete /> Delete
         </button>

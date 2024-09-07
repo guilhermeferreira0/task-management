@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext/useAuth';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ButtonForm } from './Button';
-import { notify } from '../Toasts/notify';
+import { useHookUser } from '../../hooks/useHookUser';
 
 interface LoginPageProps {
   setPage: (vl: boolean) => void;
@@ -16,10 +15,7 @@ interface IFormInput {
 }
 
 export function RegisterPage({ setPage }: LoginPageProps) {
-  const [submitError, setSubmitError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const { registerUser } = useAuth();
+  const { registerUser, loading } = useHookUser();
   const {
     handleSubmit,
     register,
@@ -27,22 +23,7 @@ export function RegisterPage({ setPage }: LoginPageProps) {
   } = useForm<IFormInput>({ mode: 'onChange' });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    setIsLoading(true);
-    const response = await registerUser(data);
-    if (!response) {
-      setSubmitError(true);
-      notify('warning', 'Register Error!!');
-      setIsLoading(false);
-      return;
-    }
-
-    return new Promise(() => {
-      setTimeout(() => {
-        notify('success', 'User has been registered successfully!');
-        setIsLoading(false);
-        navigate('/dashboard');
-      }, 2000);
-    });
+    await registerUser(data);
   };
 
   return (
@@ -117,17 +98,12 @@ export function RegisterPage({ setPage }: LoginPageProps) {
           Password must be 8 characters
         </p>
       )}
-      {submitError && (
-        <p role="alert" className="text-red-200">
-          Email existing
-        </p>
-      )}
       <div className="flex flex-col gap-10">
         <Link to="/">More Informations</Link>
         <button type="button" className="w-full" onClick={() => setPage(true)}>
           Already have an account? Sign in.
         </button>
-        <ButtonForm title="Register" isLoading={isLoading} />
+        <ButtonForm title="Register" isLoading={loading} />
       </div>
     </form>
   );
