@@ -9,3 +9,7 @@ export function getCookie() {
 export function setCookie(token: string) {
   cookies.set('jwt_authorization', token);
 }
+
+export function removeCookie() {
+  cookies.remove('jwt_authorization');
+}

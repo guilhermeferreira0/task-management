@@ -13,3 +13,7 @@ export function getUserLocalStorage() {
   const user = JSON.parse(json);
   return user ?? null;
 }
+
+export function removeUserLocalStorage() {
+  localStorage.removeItem('ustj');
+}
