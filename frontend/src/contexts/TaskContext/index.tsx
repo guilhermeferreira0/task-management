@@ -18,12 +18,16 @@ export const Context = createContext({} as TaskContextProps);
 
 export function TaskProvider({ children }: TaskProviderProps) {
   const [allTasks, setAllTasks] = useState([] as TaskProps[]);
-  const { userLogged } = useAuth();
+  const { userLogged, logout } = useAuth();
 
   useEffect(() => {
     const fetchTask = async () => {
-      const { data } = await getAllTasks();
-      setAllTasks(data);
+      try {
+        const { data } = await getAllTasks();
+        setAllTasks(data);
+      } catch (e) {
+        if (e instanceof Error) logout();
+      }
     };
 
     if (userLogged) fetchTask();
